@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Oral Tradition to Digital Archive — Paschim Medinipur</title>
+<meta name="description" content="An audio-visual digital humanities archive of Gajan ritual and Patachitra scroll-painting traditions in Paschim Medinipur, West Bengal.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231C2541'/%3E%3Ccircle cx='50' cy='50' r='30' fill='%23E7A93C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C2541; --ink-deep:#12182e; --turmeric:#E7A93C; --turmeric-soft:#f0c375;
+  --lac:#A63A2E; --cream:#F4ECDA; --cream-dim:#e8dcc2; --leaf:#4F6B3A;
+  --soot:#16130F; --indigo-dye:#2C3E70; --brown:#6B4226;
+  --display:"Fraunces","Georgia",serif; --body:"Work Sans",sans-serif; --mono:"Space Mono",monospace;
+  --gap:clamp(1rem,2vw,2rem); --section-pad:clamp(4rem,9vw,8rem); --edge:clamp(1.25rem,6vw,5rem);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
+body{margin:0;background:var(--cream);color:var(--soot);font-family:var(--body);font-weight:400;line-height:1.6;overflow-x:hidden;}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;margin:0 0 .5em;color:var(--ink);letter-spacing:-0.01em;}
+p{margin:0 0 1em;}
+a{color:var(--lac);}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--turmeric);outline-offset:3px;}
+img{max-width:100%;display:block;}
+.eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--lac);display:inline-flex;align-items:center;gap:.5em;margin-bottom:1em;}
+.eyebrow::before{content:"";width:1.4em;height:2px;background:var(--turmeric);display:inline-block;}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:var(--edge);}
+section{padding-block:var(--section-pad);position:relative;}
+
+.pata-border{height:14px;width:100%;background-image:
+  linear-gradient(135deg,var(--turmeric) 25%,transparent 25.5%),
+  linear-gradient(225deg,var(--turmeric) 25%,transparent 25.5%),
+  linear-gradient(45deg,var(--lac) 25%,transparent 25.5%),
+  linear-gradient(315deg,var(--lac) 25%,transparent 25.5%);
+  background-position:0 0,7px 0,0 0,7px 0;background-size:14px 14px;background-repeat:repeat-x;background-color:var(--ink);}
+.pata-border.flip{transform:scaleY(-1);}
+
+#gate{position:fixed;inset:0;z-index:999;background:var(--ink);
+  background-image:radial-gradient(circle at 20% 20%,rgba(231,169,60,.18),transparent 40%),radial-gradient(circle at 85% 80%,rgba(166,58,46,.22),transparent 45%);
+  display:flex;align-items:center;justify-content:center;padding:2rem;transition:opacity .9s ease,visibility .9s ease;}
+#gate.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.gate-card{max-width:460px;width:100%;background:var(--cream);border:1px solid var(--ink);padding:clamp(1.75rem,4vw,2.75rem);text-align:center;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.45);}
+.gate-card::before{content:"";position:absolute;inset:8px;border:1px solid var(--turmeric);pointer-events:none;}
+.gate-card .mark{width:46px;height:46px;margin:0 auto 1.1rem;border-radius:50%;background:conic-gradient(var(--turmeric),var(--lac),var(--leaf),var(--indigo-dye),var(--turmeric));animation:spin 6s linear infinite;}
+@media (prefers-reduced-motion: reduce){.gate-card .mark{animation:none;}}
+@keyframes spin{to{transform:rotate(360deg);}}
+.gate-card h2{font-size:1.35rem;margin-bottom:.6rem;}
+.gate-card p.sub{font-family:var(--mono);font-size:.78rem;color:#6b6355;margin-bottom:1.6rem;}
+.gate-check{display:flex;align-items:center;gap:.85rem;border:1px solid #cfc3a5;padding:.9rem 1rem;text-align:left;cursor:pointer;background:#fffdf7;transition:border-color .2s ease,background .2s ease;}
+.gate-check:hover{border-color:var(--turmeric);}
+.gate-check input{appearance:none;-webkit-appearance:none;width:22px;height:22px;flex:none;border:2px solid var(--ink);border-radius:3px;display:grid;place-content:center;cursor:pointer;}
+.gate-check input::before{content:"";width:12px;height:12px;background:var(--turmeric);clip-path:polygon(14% 44%,0 65%,40% 100%,100% 16%,78% 0,38% 60%);transform:scale(0);transition:transform .18s ease;}
+.gate-check input:checked::before{transform:scale(1);}
+.gate-check span{font-size:.92rem;}
+.gate-hint{margin-top:1rem;font-size:.78rem;color:#8a7f68;}
+.gate-enter{margin-top:1.4rem;width:100%;padding:.85rem;background:var(--ink);color:var(--cream);border:1px solid var(--ink);font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:.4;pointer-events:none;transition:opacity .25s ease,background .2s ease;}
+.gate-enter.ready{opacity:1;pointer-events:auto;}
+.gate-enter.ready:hover{background:var(--lac);border-color:var(--lac);}
+
+header.site-nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:.9rem var(--edge);background:rgba(244,236,218,.86);backdrop-filter:blur(8px);border-bottom:1px solid rgba(28,37,65,.12);}
+.brandmark{display:flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--ink);text-decoration:none;}
+.brandmark .dot{width:10px;height:10px;background:var(--lac);border-radius:50%;}
+nav.links{display:flex;gap:1.4rem;font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;}
+nav.links a{color:var(--ink);text-decoration:none;opacity:.7;transition:opacity .2s;}
+nav.links a:hover{opacity:1;color:var(--lac);}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;color:var(--ink);font-size:1.2rem;}
+@media (max-width:860px){nav.links{display:none;}.nav-toggle{display:block;}}
+
+.dot-rail{position:fixed;right:1.4rem;top:50%;transform:translateY(-50%);z-index:55;display:flex;flex-direction:column;gap:.55rem;}
+.dot-rail button{width:9px;height:9px;border-radius:50%;border:1px solid var(--ink);background:transparent;padding:0;cursor:pointer;transition:.25s;}
+.dot-rail button.active{background:var(--lac);border-color:var(--lac);transform:scale(1.3);}
+@media (max-width:960px){.dot-rail{display:none;}}
+
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--ink);color:var(--cream);padding-top:6rem;overflow:hidden;position:relative;}
+#hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(231,169,60,.16),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(166,58,46,.2),transparent 50%);}
+.scroll-rig{position:relative;width:min(920px,92vw);display:flex;align-items:center;justify-content:center;margin-bottom:2.2rem;}
+.rod{width:16px;border-radius:10px;background:linear-gradient(180deg,#8a5a30,#5c3a1c);flex:none;box-shadow:inset -3px 0 6px rgba(0,0,0,.4);height:clamp(150px,22vw,230px);}
+.scroll-cloth{position:relative;height:clamp(150px,22vw,230px);background:var(--cream);border-top:6px solid var(--turmeric);border-bottom:6px solid var(--lac);width:0%;overflow:hidden;transition:width 2.1s cubic-bezier(.65,0,.35,1);display:flex;align-items:center;justify-content:center;}
+body.unfurled .scroll-cloth{width:100%;}
+.scroll-cloth .glyphs{position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,transparent 0 38px,rgba(28,37,65,.06) 38px 40px);opacity:.7;}
+.scroll-cloth h1{color:var(--ink);font-size:clamp(1.3rem,3.4vw,2.1rem);padding:0 1.4rem;white-space:normal;position:relative;z-index:2;}
+.hero-sub{font-family:var(--mono);font-size:.85rem;letter-spacing:.05em;color:var(--turmeric-soft);max-width:640px;opacity:0;transform:translateY(10px);transition:opacity 1s ease .9s,transform 1s ease .9s;}
+body.unfurled .hero-sub{opacity:1;transform:none;}
+.hero-authors{margin-top:1rem;font-family:var(--body);font-size:.95rem;color:var(--cream-dim);opacity:0;transition:opacity 1s ease 1.3s;}
+body.unfurled .hero-authors{opacity:1;}
+.hero-scrolldown{position:absolute;bottom:2.4rem;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-dim);opacity:0;transition:opacity 1s ease 1.8s;display:flex;flex-direction:column;align-items:center;gap:.5rem;}
+body.unfurled .hero-scrolldown{opacity:.8;}
+.hero-scrolldown .stem{width:1px;height:34px;background:var(--turmeric);animation:drip 1.8s ease-in-out infinite;}
+@keyframes drip{0%,100%{transform:scaleY(.6);opacity:.4;}50%{transform:scaleY(1);opacity:1;}}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.in{opacity:1;transform:none;}
+.reveal-stagger>*{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.reveal-stagger.in>*{opacity:1;transform:none;}
+.reveal-stagger.in>*:nth-child(1){transition-delay:.02s;}
+.reveal-stagger.in>*:nth-child(2){transition-delay:.1s;}
+.reveal-stagger.in>*:nth-child(3){transition-delay:.18s;}
+.reveal-stagger.in>*:nth-child(4){transition-delay:.26s;}
+.reveal-stagger.in>*:nth-child(5){transition-delay:.34s;}
+
+.section-head{max-width:760px;margin-bottom:3rem;}
+.section-head h2{font-size:clamp(1.7rem,3.6vw,2.7rem);}
+.section-head .lede{font-size:1.06rem;color:#3c3527;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);}
+@media (max-width:860px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+.card{background:#fffdf7;border:1px solid rgba(28,37,65,.14);padding:1.7rem;position:relative;}
+.card .tag{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--lac);}
+.keywords{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;}
+.keywords span{font-family:var(--mono);font-size:.7rem;padding:.35rem .7rem;border:1px solid var(--ink);color:var(--ink);background:linear-gradient(0deg,transparent 50%,rgba(231,169,60,.35) 50%);}
+
+#thesis{background:var(--indigo-dye);color:var(--cream);}
+.thesis-quote{font-family:var(--display);font-weight:500;font-size:clamp(1.5rem,3.6vw,2.5rem);line-height:1.35;max-width:900px;}
+.thesis-quote em{color:var(--turmeric-soft);font-style:normal;}
+.thesis-attr{margin-top:1.6rem;font-family:var(--mono);font-size:.78rem;color:var(--cream-dim);}
+
+.tab-row{display:flex;gap:.6rem;margin-bottom:2rem;flex-wrap:wrap;}
+.tab-btn{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;padding:.7rem 1.3rem;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:.2s;}
+.tab-btn.active,.tab-btn:hover{background:var(--ink);color:var(--cream);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.pigment-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.8rem;margin-top:1.4rem;}
+.pigment{border:1px solid rgba(28,37,65,.15);background:#fffdf7;}
+.pigment .swatch{height:52px;}
+.pigment .label{padding:.5rem .6rem;font-family:var(--mono);font-size:.66rem;}
+.pigment .label b{display:block;font-family:var(--body);font-size:.82rem;color:var(--ink);}
+.ritual-timeline{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.6rem;}
+.ritual-step{flex:1 1 150px;border-left:3px solid var(--lac);padding:.2rem 0 .2rem .9rem;}
+.ritual-step b{display:block;font-size:.92rem;color:var(--ink);}
+.ritual-step span{font-size:.8rem;color:#5b5342;}
+
+#map .map-frame{border:1px solid var(--ink);aspect-ratio:16/8;width:100%;filter:grayscale(.15) sepia(.08);}
+.map-meta{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:1.2rem;font-family:var(--mono);font-size:.75rem;color:#5b5342;}
+.map-meta b{color:var(--ink);font-family:var(--body);}
+
+.song-card{border:1px solid var(--ink);background:#fffdf7;overflow:hidden;}
+.song-card summary{list-style:none;cursor:pointer;padding:1.2rem 1.4rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
+.song-card summary::-webkit-details-marker{display:none;}
+.song-card summary .plus{font-family:var(--mono);font-size:1.1rem;transition:transform .25s;}
+.song-card[open] summary .plus{transform:rotate(45deg);}
+.song-card .song-body{padding:0 1.4rem 1.5rem;}
+.song-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
+@media (max-width:700px){.song-cols{grid-template-columns:1fr;}}
+.song-cols h5{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--lac);margin-bottom:.5rem;}
+.song-cols p{font-size:.92rem;white-space:pre-line;}
+.song-singer{font-family:var(--mono);font-size:.72rem;color:#6b6355;margin-top:.8rem;}
+
+.acc-item{border-bottom:1px solid rgba(28,37,65,.18);}
+.acc-item summary{list-style:none;cursor:pointer;padding:1.1rem 0;display:flex;justify-content:space-between;gap:1rem;font-family:var(--display);font-size:1.08rem;color:var(--ink);}
+.acc-item summary::-webkit-details-marker{display:none;}
+.acc-item .qs{padding:0 0 1.2rem;}
+.acc-item .qs ul{margin:0;padding-left:1.2rem;color:#3c3527;font-size:.94rem;}
+.acc-item .qs li{margin-bottom:.4rem;}
+.participant-scroll{display:flex;gap:1.1rem;overflow-x:auto;padding-bottom:1rem;margin-top:2rem;scroll-snap-type:x mandatory;}
+.participant-card{flex:0 0 250px;scroll-snap-align:start;border:1px solid var(--ink);background:#fffdf7;padding:1.2rem;}
+.participant-card h4{font-size:1rem;margin-bottom:.15rem;}
+.participant-card .role{font-family:var(--mono);font-size:.68rem;color:var(--lac);text-transform:uppercase;letter-spacing:.06em;}
+.participant-card p{font-size:.84rem;color:#4c4433;margin-top:.7rem;}
+
+.theory-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:1.6rem;}
+@media (max-width:760px){.theory-grid{grid-template-columns:1fr;}}
+.theory-card{border-top:3px solid var(--turmeric);padding-top:.9rem;}
+.theory-card h4{font-size:1rem;}
+.theory-card p{font-size:.88rem;color:#3c3527;}
+
+#ethics{background:var(--soot);color:var(--cream-dim);}
+#ethics h2,#ethics h3{color:var(--cream);}
+#ethics .card{background:rgba(244,236,218,.05);border-color:rgba(244,236,218,.18);color:var(--cream-dim);}
+#ethics .card .tag{color:var(--turmeric-soft);}
+#ethics a{color:var(--turmeric-soft);}
+
+.model-list{display:flex;flex-direction:column;}
+.model-row{display:grid;grid-template-columns:140px 1fr auto;gap:1rem;align-items:baseline;padding:1.1rem 0;border-bottom:1px solid rgba(28,37,65,.15);}
+@media (max-width:700px){.model-row{grid-template-columns:1fr;gap:.3rem;}}
+.model-row .yr{font-family:var(--mono);font-size:.78rem;color:var(--lac);}
+.model-row h4{font-size:1rem;margin:0;}
+.model-row p{font-size:.86rem;color:#4c4433;margin:.3rem 0 0;}
+.model-row a{font-family:var(--mono);font-size:.72rem;white-space:nowrap;}
+
+.biblio-group{margin-bottom:2.2rem;}
+.biblio-group h3{font-size:1.05rem;border-bottom:1px solid var(--ink);padding-bottom:.5rem;margin-bottom:.9rem;}
+.biblio-group ul{margin:0;padding-left:1.1rem;}
+.biblio-group li{font-size:.88rem;margin-bottom:.55rem;color:#3c3527;}
+.biblio-group li b{color:var(--ink);}
+
+.team-card{display:flex;gap:1.2rem;align-items:flex-start;}
+.team-card .avatar{width:64px;height:64px;flex:none;border-radius:50%;background:conic-gradient(var(--turmeric),var(--lac),var(--leaf),var(--indigo-dye),var(--turmeric));}
+.team-card h4{margin-bottom:.15rem;}
+.team-card .role{font-family:var(--mono);font-size:.7rem;color:var(--lac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem;display:block;}
+.team-card p{font-size:.88rem;color:#3c3527;}
+
+footer{background:var(--ink);color:var(--cream-dim);padding-block:3rem 2rem;}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;}
+footer .fmark{font-family:var(--mono);font-size:.78rem;}
+footer .fnote{font-size:.78rem;max-width:480px;color:#9b957f;}
+footer a{color:var(--turmeric-soft);}
+
+#top-btn{position:fixed;bottom:1.6rem;right:1.4rem;z-index:50;width:42px;height:42px;border-radius:50%;background:var(--ink);color:var(--cream);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease,transform .2s ease;}
+#top-btn.show{opacity:1;pointer-events:auto;}
+#top-btn:hover{transform:translateY(-3px);}
+.small-note{font-size:.78rem;color:#8a7f68;font-family:var(--mono);}
+::selection{background:var(--turmeric);color:var(--ink);}
+
+/* ============================= SUSTAINABILITY STRIP (pillars + license) ============================= */
+.pillar-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem;margin-top:1.6rem;}
+@media (max-width:900px){.pillar-strip{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.pillar-strip{grid-template-columns:1fr;}}
+.pillar{border:1px solid rgba(244,236,218,.22);padding:1rem .9rem;background:rgba(244,236,218,.04);}
+.pillar .num{font-family:var(--mono);font-size:.7rem;color:var(--turmeric-soft);}
+.pillar h5{font-family:var(--display);font-size:.95rem;color:var(--cream);margin:.3rem 0 .3rem;}
+.pillar p{font-size:.8rem;color:var(--cream-dim);margin:0;}
+.endings-links{margin-top:1.2rem;display:flex;gap:1.2rem;flex-wrap:wrap;font-family:var(--mono);font-size:.75rem;}
+
+.colophon-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.2rem;}
+@media (max-width:760px){.colophon-strip{grid-template-columns:1fr;}}
+.colophon-card{border:1px solid rgba(244,236,218,.22);padding:1.2rem;display:flex;gap:.9rem;align-items:flex-start;}
+.colophon-card svg{flex:none;width:34px;height:34px;}
+.colophon-card h5{font-family:var(--display);color:var(--cream);font-size:.95rem;margin:0 0 .3rem;}
+.colophon-card p{font-size:.8rem;color:var(--cream-dim);margin:0;}
+.colophon-card a{color:var(--turmeric-soft);}
+
+/* ============================= DIGITAL FOOTPRINT ============================= */
+.filter-bar{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.6rem 0 2rem;}
+.filter-chip{
+  font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;
+  padding:.55rem 1rem;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;
+  border-radius:999px;transition:.2s;
+}
+.filter-chip.active,.filter-chip:hover{background:var(--ink);color:var(--cream);}
+.footprint-count{font-family:var(--mono);font-size:.72rem;color:#8a7f68;margin-bottom:1rem;}
+.footprint-grid{display:flex;flex-direction:column;gap:.6rem;}
+.fp-item{
+  display:grid;grid-template-columns:auto 1fr auto;gap:.9rem;align-items:baseline;
+  padding:.85rem 1rem;border:1px solid rgba(28,37,65,.14);background:#fffdf7;
+  transition:border-color .2s ease, transform .15s ease;
+}
+.fp-item:hover{border-color:var(--turmeric);}
+.fp-item .fp-cat{
+  font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--lac);white-space:nowrap;padding-top:.15rem;
+}
+.fp-item .fp-body h5{font-size:.92rem;margin:0 0 .2rem;color:var(--ink);font-family:var(--body);font-weight:600;}
+.fp-item .fp-body p{font-size:.82rem;margin:0;color:#4c4433;}
+.fp-item .fp-domain{font-family:var(--mono);font-size:.68rem;color:#8a7f68;white-space:nowrap;}
+.fp-item a.fp-link{white-space:nowrap;font-family:var(--mono);font-size:.72rem;align-self:center;}
+@media (max-width:700px){
+  .fp-item{grid-template-columns:1fr;}
+  .fp-item .fp-domain, .fp-item a.fp-link{justify-self:start;}
+}
+.fp-hidden{display:none;}
+
+/* ============================= READING ROOM (tabs-block scoping reuses .tab-btn/.tab-panel) ============================= */
+.tabs-block{margin-top:1.6rem;}
+.reading-item{padding:.9rem 0;border-bottom:1px solid rgba(28,37,65,.14);}
+.reading-item h5{font-size:.95rem;margin:0 0 .25rem;}
+.reading-item .src{font-family:var(--mono);font-size:.68rem;color:var(--lac);text-transform:uppercase;letter-spacing:.05em;}
+.reading-item p{font-size:.85rem;color:#4c4433;margin:.3rem 0 0;}
+.reading-item a{font-size:.8rem;}
+.unverified-tag{font-family:var(--mono);font-size:.62rem;color:#a8763f;border:1px solid #d9bd8f;padding:.1rem .4rem;margin-left:.5rem;border-radius:3px;}
+
+/* ============================= CITE WIDGET ============================= */
+.cite-box{border:1px solid var(--ink);background:#fffdf7;}
+.cite-tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--ink);}
+.cite-tab{
+  font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;
+  padding:.85rem 1.2rem;background:transparent;border:none;border-right:1px solid rgba(28,37,65,.15);
+  cursor:pointer;color:var(--ink);opacity:.6;
+}
+.cite-tab.active{opacity:1;background:var(--ink);color:var(--cream);}
+.cite-panel{display:none;padding:1.4rem;}
+.cite-panel.active{display:block;}
+.cite-panel pre{
+  white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:.82rem;
+  background:var(--cream-dim);padding:1rem;border:1px solid rgba(28,37,65,.15);margin:0 0 1rem;line-height:1.6;
+}
+.cite-copy{
+  font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;
+  padding:.6rem 1.1rem;background:var(--turmeric);border:1px solid var(--ink);cursor:pointer;color:var(--ink);
+}
+.cite-copy:hover{background:var(--lac);color:var(--cream);}
+.cite-copy.copied{background:var(--leaf);color:var(--cream);}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-card">
+    <div class="mark" aria-hidden="true"></div>
+    <p class="eyebrow" style="justify-content:center;">Before you enter</p>
+    <h2>A small honesty check</h2>
+    <p class="sub">One box. No CAPTCHA grids, no traffic lights — just you and a question.</p>
+    <label class="gate-check">
+      <input type="checkbox" id="gate-box">
+      <span>Are you genuinely curious about Paschim&nbsp;Medinipur's living heritage — its scrolls, songs and rituals?</span>
+    </label>
+    <p class="gate-hint">Tick it only if you mean it. The archive opens either way, but curiosity travels better.</p>
+    <button class="gate-enter" id="gate-enter">Unroll the scroll →</button>
+  </div>
+</div>
+
+<header class="site-nav">
+  <a href="#hero" class="brandmark"><span class="dot"></span> DISHA·SIMANTA / PASCHIM MEDINIPUR</a>
+  <nav class="links">
+    <a href="#traditions">Traditions</a>
+    <a href="#songs">Patar Gaan</a>
+    <a href="#ethics">Ethics</a>
+    <a href="#footprint">Sources</a>
+    <a href="#reading">Reading Room</a>
+    <a href="#cite">Cite</a>
+    <a href="#team">Team</a>
+  </nav>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+</header>
+
+<div class="dot-rail" id="dot-rail"></div>
+
+<section id="hero">
+  <div class="scroll-rig">
+    <div class="rod" aria-hidden="true"></div>
+    <div class="scroll-cloth">
+      <div class="glyphs" aria-hidden="true"></div>
+      <h1>From Oral Tradition to Digital Archive</h1>
+    </div>
+    <div class="rod" aria-hidden="true"></div>
+  </div>
+  <p class="hero-sub">Audio-visual storytelling &amp; cultural memory in Paschim Medinipur — Gajan ritual performance and the Patachitra scroll-painters of Naya, Pingla Block, West Bengal.</p>
+  <p class="hero-authors">Research &amp; field documentation — Disha Pramanik &amp; Simanta Nandi, MA Digital Humanities &amp; Social Sciences, IIT (ISM) Dhanbad</p>
+  <div class="hero-scrolldown"><span>keep scrolling</span><span class="stem"></span></div>
+</section>
+
+<section id="abstract">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Abstract</p>
+      <h2>Heritage as something practiced, not something framed</h2>
+    </div>
+    <div class="grid-2 reveal">
+      <div>
+        <p class="lede">Digital technologies are reshaping how Paschim Medinipur's living traditions are remembered. Instead of monument-centred heritage, this project stays with the district's performative practices — Gajan's rites of endurance and devotion, and the scroll-and-song storytelling of Patachitra in and around Naya village, Pingla Block.</p>
+        <p>These traditions are woven into agrarian rhythms, devotional practice and collective memory, and they are now meeting migration, commercialisation, tourism and digital circulation all at once. Rather than freezing them into records, this study proposes digital humanities methods — community-run websites, GIS mapping of ritual and sacred space, and audio-visual oral history — that keep gesture, voice, song and seasonal variation intact.</p>
+      </div>
+      <div>
+        <p>Four kinds of repositories anchor the model: ethnographic documentation, metadata-cataloguing, community-curated archives, and spatial (GIS) mapping. Local practitioners, performers and patua artists are treated throughout as co-archivists — not subjects being recorded, but people directing how they are represented.</p>
+        <p>The aim is not preservation as freezing, but continuity: a participatory approach where technological innovation and local agency, oral tradition and cultural memory sit at the centre of the archival process, together.</p>
+      </div>
+    </div>
+    <div class="keywords reveal">
+      <span>Digital Humanities</span><span>Paschim Medinipur</span><span>Community-Led Archiving</span>
+      <span>Patachitra &amp; Gajan</span><span>Audio-Visual Storytelling</span><span>Oral Traditions</span>
+      <span>Digital Preservation</span><span>Bengali Digital Culture</span>
+    </div>
+  </div>
+</section>
+
+<div class="pata-border"></div>
+
+<section id="thesis">
+  <div class="wrap reveal">
+    <p class="thesis-quote">Heritage is not a <em>thing</em> to lock away. It is <em>voice, gesture, and season</em> — kept alive only by being performed again, by someone, for someone, next year too.</p>
+    <p class="thesis-attr">— the project's working premise, after Laurajane Smith's critique of the "Authorized Heritage Discourse"</p>
+  </div>
+</section>
+
+<div class="pata-border flip"></div>
+
+<section id="traditions">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Two Living Traditions</p>
+      <h2>Gajan &amp; Patachitra, side by side</h2>
+      <p class="lede">Both traditions are agrarian, devotional, and intergenerational — one performed on the body, the other on cloth. Switch between them below.</p>
+    </div>
+
+    <div class="tab-row reveal">
+      <button class="tab-btn active" data-tab="patachitra">Patachitra — Scroll Painting</button>
+      <button class="tab-btn" data-tab="gajan">Gajan — Ritual Performance</button>
+    </div>
+
+    <div class="tab-panel active" id="tab-patachitra">
+      <div class="grid-2">
+        <div>
+          <p>In Naya village, all 176 households — known collectively by the surname <b>Chitrakar</b>, "artist" — paint patachitra scrolls and sing the <em>patar gaan</em>, the song of the painting, as they unfurl each panel (<em>pata khelano</em>). It is audio-visual storytelling that predates the moving image: mythology, epic, and now child marriage, AIDS awareness and the pandemic, painted with pigments made from turmeric, soot, conch shell and river clay.</p>
+          <p>The women patuas of Naya — among them Ruksana, Swarna and Radha Chitrakar — have moved the tradition onto a global stage over the past two decades, while artists like Khadu and Bahadur Chitrakar keep the mythological repertoire that collectors and scholars still prize most.</p>
+        </div>
+        <div>
+          <p class="tag" style="font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--lac);">Natural pigments, field-recorded July 2024</p>
+          <div class="pigment-row">
+            <div class="pigment"><div class="swatch" style="background:#A63A2E"></div><div class="label"><b>Red</b>pomegranate rind, lac, red earth</div></div>
+            <div class="pigment"><div class="swatch" style="background:#E7A93C"></div><div class="label"><b>Yellow</b>turmeric, marigold</div></div>
+            <div class="pigment"><div class="swatch" style="background:#4F6B3A"></div><div class="label"><b>Green</b>kundri &amp; sagun leaves</div></div>
+            <div class="pigment"><div class="swatch" style="background:#2C3E70"></div><div class="label"><b>Blue</b>indigo, aparajita flower</div></div>
+            <div class="pigment"><div class="swatch" style="background:#6B4226"></div><div class="label"><b>Brown</b>lotkon, bel fruit</div></div>
+            <div class="pigment"><div class="swatch" style="background:#16130F"></div><div class="label"><b>Black</b>soot, lamp-black</div></div>
+            <div class="pigment"><div class="swatch" style="background:#F4ECDA;border-bottom:1px solid #ddd"></div><div class="label"><b>White</b>conch shell, chalk, rice</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-gajan">
+      <div class="grid-2">
+        <div>
+          <p><b>Gajan</b> is a pre-harvest, hot-season festival of the Rarh region devoted mainly to Shiva, observed across villages of Paschim Medinipur including Rahatpur, Anandapur and Ramjibanpur. Devotees undertake fasting, hook-swinging, body piercing and fire-walking as acts of endurance and faith, closing with the Charak ritual and a communal feast.</p>
+          <p>Fieldwork for this project gathered audio and video testimony from priests, lifelong participants, diaspora visitors and younger observers — voices ranging from a 70-year-old woman devotee married into the ritual fifty years ago, to a 24-year-old student encountering it as a "cultural critic."</p>
+        </div>
+        <div>
+          <p class="tag" style="font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--lac);">Ritual sequence, as documented in interviews</p>
+          <div class="ritual-timeline">
+            <div class="ritual-step"><b>Initiation</b><span>Flag rituals — Lal Dwaja, Shwet Dwaja</span></div>
+            <div class="ritual-step"><b>Worship</b><span>Shiva Puja, Kola Katha</span></div>
+            <div class="ritual-step"><b>Ascetic discipline</b><span>Hobishya, fasting, dandi kata</span></div>
+            <div class="ritual-step"><b>Endurance</b><span>Hook swinging, body piercing, fire walking, phul kanta</span></div>
+            <div class="ritual-step"><b>Closing</b><span>Charak ritual, festival mantra, mach-bhat feast</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="map">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Field Sites</p>
+      <h2>Naya village, Pingla Block, Paschim Medinipur</h2>
+      <p class="lede">GIS-based mapping of ritual and sacred space is proposed as one of the four repository types — placing devotional and craft geography alongside the oral archive, rather than treating it as a separate layer.</p>
+    </div>
+    <iframe class="map-frame reveal" loading="lazy" title="Map of Naya village, Pingla, Paschim Medinipur"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=87.5800%2C22.3300%2C87.7200%2C22.4200&layer=mapnik&marker=22.3730%2C87.6500"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="map-meta reveal">
+      <div><b>Naya (Patua Gram)</b> — Pingla Block</div>
+      <div><b>Rahatpur, Anandapur, Ramjibanpur</b> — Gajan field villages</div>
+      <div><b>District</b> — Paschim Medinipur, West Bengal</div>
+      <div><a href="https://www.openstreetmap.org/?mlat=22.3730&mlon=87.6500#map=12/22.3730/87.6500" target="_blank" rel="noopener">Open larger map ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="pata-border"></div>
+
+<section id="songs">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Patar Gaan — Song of the Painting</p>
+      <h2>Three scrolls, three voices</h2>
+      <p class="lede">Every patachitra panel is sung as it is unrolled — <em>pata khelano</em>. These excerpts, recorded in the field in July 2024, show how one painted scroll can hold ecology, devotion and social critique at once.</p>
+    </div>
+    <div class="reveal" style="display:flex;flex-direction:column;gap:1rem;">
+      <details class="song-card" open>
+        <summary><span><b>Shobai Mile Koro Gaach Ropon</b> — on planting trees together</span><span class="plus">+</span></summary>
+        <div class="song-body">
+          <div class="song-cols">
+            <div><h5>In Bengali</h5><p>Shobai mile koro gaach ropon
+O Jonogon! Shobai mile koro gaach ropon
+Gaach lagaile porey manusher upokaar kore…</p></div>
+            <div><h5>In translation</h5><p>Let us all plant trees together
+O People! Let us plant trees together
+Planting trees benefits people later…</p></div>
+          </div>
+          <p class="song-singer">Performed by Shiuli Chitrakar, Naya Pingla — a call to ecological responsibility, read alongside the UN Sustainable Development Goals.</p>
+        </div>
+      </details>
+      <details class="song-card">
+        <summary><span><b>Saanjher Belae Jamunar Jol</b> — on Radha and Krishna at dusk</span><span class="plus">+</span></summary>
+        <div class="song-body">
+          <div class="song-cols">
+            <div><h5>In Bengali</h5><p>Saanjher belae jamunar jol ante bole key
+Na jaaner kon kalar shone mon mojeche
+Kodom tolae uthei abar bongshi bajae ke…</p></div>
+            <div><h5>In translation</h5><p>Who calls for Jamuna water at dusk?
+Do you not know who the dark one is who holds my heart?
+Who plays the flute again under the kadam tree?…</p></div>
+          </div>
+          <p class="song-singer">Performed by Ruksana Chitrakar — dusk as the threshold between the ordinary and the divine, in the Bhakti register of Radha–Krishna devotion.</p>
+        </div>
+      </details>
+      <details class="song-card">
+        <summary><span><b>Dariya Maacher Biye</b> — the wedding of the river fish</span><span class="plus">+</span></summary>
+        <div class="song-body">
+          <div class="song-cols">
+            <div><h5>In Bengali</h5><p>Dariya maacher biye ditey cholo go rangeela
+Dui kaatla bole ami biyer palki noye jabolo rangeela…</p></div>
+            <div><h5>In translation</h5><p>O Rangeela, let us go to marry off the river fish
+Two katla fish say, we will carry the wedding palanquin…</p></div>
+          </div>
+          <p class="song-singer">Performed by Sabera Chitrakar — local biodiversity and Bengali wedding custom, with the boal fish read as a folk allegory for social hierarchy.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Ethnographic Method</p>
+      <h2>An interview built to be handed back</h2>
+      <p class="lede">The questionnaire below was designed so respondents could reflect on ownership as much as memory — who should hold these recordings, and who gets to say what belongs in them.</p>
+    </div>
+
+    <div class="reveal">
+      <details class="acc-item" open>
+        <summary>A · Participant information<span class="plus">+</span></summary>
+        <div class="qs"><ul><li>Village / locality, occupation, role in Gajan (performer, organiser, devotee, musician, priest, artisan)</li></ul></div>
+      </details>
+      <details class="acc-item">
+        <summary>B · History &amp; cultural memory<span class="plus">+</span></summary>
+        <div class="qs"><ul><li>What stories, myths or local histories are tied to Gajan here?</li><li>Have the traditions changed — and how?</li></ul></div>
+      </details>
+      <details class="acc-item">
+        <summary>C · Performance &amp; participation<span class="plus">+</span></summary>
+        <div class="qs"><ul><li>Who takes part — men, women, children, elders?</li><li>How is the knowledge passed down a generation?</li></ul></div>
+      </details>
+      <details class="acc-item">
+        <summary>D · Community &amp; heritage<span class="plus">+</span></summary>
+        <div class="qs"><ul><li>What should be preserved, and why does it matter to you?</li><li>Is younger participation declining?</li></ul></div>
+      </details>
+      <details class="acc-item">
+        <summary>E · Digital documentation &amp; archives<span class="plus">+</span></summary>
+        <div class="qs"><ul><li>Who should manage these archives — government, researchers, or the community itself?</li><li>Should the community control access to its own records?</li></ul></div>
+      </details>
+      <details class="acc-item">
+        <summary>F · Community-curated heritage<span class="plus">+</span></summary>
+        <div class="qs"><ul><li>Would you contribute your own songs, stories or footage to an archive?</li><li>What support would help preserve this for the next generation?</li></ul></div>
+      </details>
+      <details class="acc-item">
+        <summary>G · Final reflections<span class="plus">+</span></summary>
+        <div class="qs"><ul><li>What should future generations know that hasn't been asked yet?</li></ul></div>
+      </details>
+    </div>
+
+    <p class="eyebrow reveal" style="margin-top:3rem;">Field Participants</p>
+    <div class="participant-scroll reveal">
+      <div class="participant-card"><h4>Dipak Kr Pramanik</h4><span class="role">Diaspora · Lifelong Participant</span><p>59, Rahatpur. Audio + video. Hook swinging, fire walking, processions, fasting rituals.</p></div>
+      <div class="participant-card"><h4>ManjuLata Pramanik</h4><span class="role">Direct Ritual Participant</span><p>70, Rahatpur → Durgapur. ~50 yrs active involvement. Dandi kata, tongue piercing, Charak.</p></div>
+      <div class="participant-card"><h4>Soumen Chakrabarty</h4><span class="role">Priest · Ritual Authority</span><p>40, Anandapur. 20 yrs active. Flag rituals, Shiva Puja, ascetic rites, festival closing.</p></div>
+      <div class="participant-card"><h4>Ankan Karmakar</h4><span class="role">Observer · Cultural Critic</span><p>24, Ramjibanpur / Kheerpai. Student; 5 yrs observing. Ban phora, agun jhap, Rat &amp; Din Gajan.</p></div>
+      <div class="participant-card"><h4>Nirmal Pramanik</h4><span class="role">Performer · Three-Time Saint</span><p>45, Rahatpur. Ritual purification, ascetic discipline, dhak music, river rituals.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="pata-border flip"></div>
+
+<section id="coarchivist">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Theory in Practice</p>
+      <h2>Why "co-archivist," not "informant"</h2>
+      <p class="lede">Four scholarly threads shape the model this project borrows from — brought, deliberately, into a rural Hindu–Muslim agrarian setting that this literature rarely reaches.</p>
+    </div>
+    <div class="theory-grid reveal">
+      <div class="theory-card">
+        <h4>The archive and the repertoire</h4>
+        <p>Diana Taylor's distinction between the written archive and the embodied, performed repertoire is the central problem this project sits inside: how do you archive a gesture, a swing of the hook, a sung line, without freezing it?</p>
+      </div>
+      <div class="theory-card">
+        <h4>Community-centred collecting</h4>
+        <p>Michelle Caswell's principles for community archives — broad participation, shared stewardship, many voices, archiving as activism, ongoing reflexivity — read here as a working checklist, not a slogan.</p>
+      </div>
+      <div class="theory-card">
+        <h4>The participatory archive</h4>
+        <p>Isto Huvila's term for decentralised, user-directed curation names exactly what happens when a patua chooses what gets filmed, and a priest decides what stays undocumented.</p>
+      </div>
+      <div class="theory-card">
+        <h4>Authorized Heritage Discourse</h4>
+        <p>Laurajane Smith's critique of who gets to decide what counts as "heritage" is the reason this project starts from performance, not from monuments or listings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ethics">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Sustainability &amp; Ethics</p>
+      <h2>Building a project that can also end well</h2>
+      <p class="lede">Digital humanities work is often described as facing a coming "digital dark age" — the rate at which we produce digital material has outpaced our ability to keep it usable. The University of Victoria's Endings Project frames this as three open questions this archive has to answer honestly.</p>
+    </div>
+    <div class="grid-3 reveal">
+      <div class="card">
+        <p class="tag">01 · Conclusion</p>
+        <h4>How should a DH project end?</h4>
+        <p>Not every archive needs to keep growing forever. Planning a stopping point — and what "finished" looks like — is part of the design, not an afterthought.</p>
+      </div>
+      <div class="card">
+        <p class="tag">02 · Preservation</p>
+        <h4>Can it stay usable and dynamic?</h4>
+        <p>Static files outlast custom code. Wherever this project can trade a clever feature for a durable format, it should.</p>
+      </div>
+      <div class="card">
+        <p class="tag">03 · Custody</p>
+        <h4>Who holds it, and on what terms?</h4>
+        <p>Distributed archiving raises its own questions of access and intellectual property — which is precisely why community authority over the material, not just institutional storage, has to be built in from the start.</p>
+      </div>
+    </div>
+    <div class="grid-2 reveal" style="margin-top:2rem;">
+      <div class="card">
+        <p class="tag">Attribution as protocol</p>
+        <p>When POT Maya installed bilingual signage asking visitors to credit each artist and village before posting photos online, it wrote an attribution ethic into the festival itself. This project treats that signage as a working model, not a footnote.</p>
+      </div>
+      <div class="card">
+        <p class="tag">Software with the ethics built in</p>
+        <p>Where possible this project favours platforms like <a href="https://mukurtu.org" target="_blank" rel="noopener">Mukurtu</a>, designed for granular, culturally-specific access protocols, over a generic content management system — and looks to the CARE Principles for Indigenous Data Governance as a baseline, alongside Dublin Core and CIDOC-CRM for shared metadata.</p>
+      </div>
+    </div>
+
+    <p class="eyebrow reveal" style="margin-top:3rem;">The Endings Project's Five Pillars</p>
+    <p class="lede reveal" style="color:var(--cream-dim);max-width:760px;">University of Victoria's <a href="https://endings.uvic.ca/principles.html" target="_blank" rel="noopener">Principles for Digital Longevity</a> (v2.2.1) split any digital humanities project into five parts. This site follows all five deliberately — including, in a small way, by being built as the plain static HTML/CSS/JS file you're reading right now.</p>
+    <div class="pillar-strip reveal">
+      <div class="pillar"><span class="num">01 · Data</span><h5>Open formats only</h5><p>Stored in formats built for the long haul, not boutique ones — this project's own field data (interview structure, pigment table, song texts) is kept as plain text and markup, not a proprietary database.</p></div>
+      <div class="pillar"><span class="num">02 · Documentation</span><h5>Rights made explicit</h5><p>Data models and licensing should be spelled out in a static document that travels with the data — see the licence panel just below.</p></div>
+      <div class="pillar"><span class="num">03 · Processing</span><h5>Validate relentlessly</h5><p>Any processing code should validate its own inputs and outputs rather than fail silently — good practice whether the "code" is a build script or a field-data spreadsheet.</p></div>
+      <div class="pillar"><span class="num">04 · Products</span><h5>No fragile stack</h5><p>"No boutique technologies... no dependence on external libraries." This page is one HTML file with inline CSS/JS — no build step, no framework, no dependency that can quietly disappear.</p></div>
+      <div class="pillar"><span class="num">05 · Release</span><h5>Versioned, citable</h5><p>Every release should carry a build date and version number, and make clear how to cite it. See the version stamp and citation tool below.</p></div>
+    </div>
+    <p class="endings-links reveal">
+      <a href="https://endings.uvic.ca/about.html" target="_blank" rel="noopener">Read "About Us" ↗</a>
+      <a href="https://endings.uvic.ca/principles.html" target="_blank" rel="noopener">Read the full Principles ↗</a>
+    </p>
+
+    <div class="colophon-strip reveal">
+      <div class="colophon-card">
+        <svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" stroke="#E7A93C" stroke-width="2"/><path d="M18 32a14 14 0 0 1 14-14M18 32a14 14 0 0 0 14 14M46 32a14 14 0 0 1-14 14M46 32a14 14 0 0 0-14-14" stroke="#F4ECDA" stroke-width="2"/></svg>
+        <div><h5>Licence — CC BY-NC-SA 4.0</h5><p>Text, structure and design of this prototype are shared under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">Creative Commons Attribution–NonCommercial–ShareAlike 4.0</a>. Field recordings, images and songs remain the property of the individual performers and communities of Naya, Rahatpur, Anandapur and Ramjibanpur, used here with consent for research purposes only.</p></div>
+      </div>
+      <div class="colophon-card">
+        <svg viewBox="0 0 64 64" fill="none"><rect x="10" y="10" width="44" height="44" rx="4" stroke="#E7A93C" stroke-width="2"/><path d="M20 32h24M20 22h24M20 42h14" stroke="#F4ECDA" stroke-width="2" stroke-linecap="round"/></svg>
+        <div><h5>Open access</h5><p>No paywall, no login. Every source this page cites that is itself open-access is linked directly; sources that sit behind a publisher paywall are labelled so, with a stable link to the publisher record rather than a login-gated PDF.</p></div>
+      </div>
+      <div class="colophon-card">
+        <svg viewBox="0 0 64 64" fill="none"><path d="M32 12v16l10 10" stroke="#E7A93C" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="32" r="20" stroke="#F4ECDA" stroke-width="2"/></svg>
+        <div><h5>Version 1.1 — built 2026-07-08</h5><p>Static single-file release. See <a href="#cite">Cite This Project</a> below for how to reference this exact edition unambiguously, per Endings principle 5.4.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pata-border flip"></div>
+
+<!-- ============================= DIGITAL FOOTPRINT ============================= -->
+<section id="footprint">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Where Patachitra Already Lives Online</p>
+      <h2>The digital footprint, mapped honestly</h2>
+      <p class="lede">Before proposing a new archive, it's worth being honest about the one that already exists — scattered across government portals, artist pages, marketplaces, journalism and social feeds. Every link below was gathered during this project's own research. Filter by what kind of digital trace it is.</p>
+    </div>
+
+    <div class="filter-bar reveal" id="fp-filters">
+      <button class="filter-chip active" data-cat="all">All sources</button>
+      <button class="filter-chip" data-cat="gov">Government &amp; GI Recognition</button>
+      <button class="filter-chip" data-cat="artist">Artists &amp; Family Pages</button>
+      <button class="filter-chip" data-cat="market">Market &amp; Valuation</button>
+      <button class="filter-chip" data-cat="social">Social &amp; Video Circulation</button>
+      <button class="filter-chip" data-cat="press">Press &amp; Travel Writing</button>
+      <button class="filter-chip" data-cat="portal">Heritage Portals &amp; NGOs</button>
+    </div>
+    <p class="footprint-count reveal" id="fp-count"></p>
+    <div class="footprint-grid reveal" id="fp-grid">
+      <div class="fp-item" data-cat="press"><span class="fp-cat">press</span><div class="fp-body"><h5>Frontline (The Hindu) — "Patachitra: Ancient Storytelling Tradition Finds New Life"</h5><p>Feb 2025 field report from the Patachitra Mela at Naya — this project's single richest press source.</p></div><span class="fp-domain">frontline.thehindu.com</span><a class="fp-link" href="https://frontline.thehindu.com/arts-and-culture/patachitra-artists-west-bengal-naya-paschim-medinipur-patuas-ancient-tradition-scroll-painting-song-dance/article69175244.ece" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="gov"><span class="fp-cat">gov</span><div class="fp-body"><h5>Rural Craft Hub — Pata Chitra at Paschim Midnapur</h5><p>West Bengal Khadi &amp; Village Industries Board's own page on the craft-hub scheme.</p></div><span class="fp-domain">wbkvib.org.in</span><a class="fp-link" href="https://www.wbkvib.org.in/index.php/village-industries-m/rural-craft-hub-m/188-pata-chitra-at-paschim-midnapur" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="gov"><span class="fp-cat">gov</span><div class="fp-body"><h5>ODOP Bengal Brochure</h5><p>West Bengal MSME department's "One District One Product" brochure listing Patachitra as a flagship craft.</p></div><span class="fp-domain">msme.wb.gov.in</span><a class="fp-link" href="https://msme.wb.gov.in/sites/default/files/ODOP-Bengal%20brochure.pdf" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="gov"><span class="fp-cat">gov</span><div class="fp-body"><h5>Bengal Patachitra — ODOP, Government of India</h5><p>National ODOP portal entry; the same craft recognised at both state and union level.</p></div><span class="fp-domain">india.gov.in</span><a class="fp-link" href="https://www.india.gov.in/explore-india/odop/details/bengal-patachitra-1" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="gov"><span class="fp-cat">gov</span><div class="fp-body"><h5>"Patachitra Painters Gaining Momentum Thanks to Rural Craft Hub"</h5><p>Published by the ruling state party's own site — recognition here is political as much as cultural.</p></div><span class="fp-domain">aitcofficial.org</span><a class="fp-link" href="https://aitcofficial.org/patachitra-painters-gaining-momentum-thanks-to-rural-craft-hub/" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="artist"><span class="fp-cat">artist</span><div class="fp-body"><h5>Artist profile: Bahadur Chitrakar</h5><p>The same Bahadur Chitrakar quoted at length in this project's own field interviews (Sagepub, 2025) — his profile on a crafts-documentation platform.</p></div><span class="fp-domain">artsoftheearthindia.in</span><a class="fp-link" href="https://www.artsoftheearthindia.in/artist/bahadur-chitrakar-" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="artist"><span class="fp-cat">artist</span><div class="fp-body"><h5>Artist listing on Daricha Foundation</h5><p>A crafts-documentation platform maintaining individual patua profiles.</p></div><span class="fp-domain">daricha.org</span><a class="fp-link" href="https://www.daricha.org/artists_details.aspx?ArtistID=EMEYCDU5FKH6" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="artist"><span class="fp-cat">artist</span><div class="fp-body"><h5>"Pattachitra of West Bengal" — IndiaInCH</h5><p>India's intangible-cultural-heritage documentation platform's craft entry.</p></div><span class="fp-domain">indiainch.org</span><a class="fp-link" href="https://www.indiainch.org/craft/pattachitra-of-west-bengal/" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="market"><span class="fp-cat">market</span><div class="fp-body"><h5>Patachitra Painting Valuer</h5><p>An art-appraisal service pricing Patachitra works — the commodification this project's abstract names, made literal.</p></div><span class="fp-domain">patachitrapaintingvaluer.com</span><a class="fp-link" href="https://www.patachitrapaintingvaluer.com/patachitra-painting-valuer.php" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="market"><span class="fp-cat">market</span><div class="fp-body"><h5>"The Heritage of Pattachitra Paintings"</h5><p>Exotic India Art's retail-facing blog post on the tradition.</p></div><span class="fp-domain">exoticindiaart.com</span><a class="fp-link" href="https://www.exoticindiaart.com/blog/the-heritage-of-pattachitra-paintings/" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="market"><span class="fp-cat">market</span><div class="fp-body"><h5>Patachitra art — stock photography</h5><p>Scrolls circulating as licensable stock imagery — the endpoint of the "standalone painting piece" shift this project's theory section describes.</p></div><span class="fp-domain">alamy.com</span><a class="fp-link" href="https://www.alamy.com/stock-photo/patachitra-art.html" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="market"><span class="fp-cat">market</span><div class="fp-body"><h5>Satrangi 2018 — Patachitra Catalog</h5><p>An exhibition-and-sale catalogue produced by the OjasArt gallery.</p></div><span class="fp-domain">ojasart.com</span><a class="fp-link" href="https://ojasart.com/wp-content/uploads/2023/04/Satrangi-2018-Patachitra-Catalog.pdf" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="social"><span class="fp-cat">social</span><div class="fp-body"><h5>Dastkar Society — Facebook post</h5><p>Craft-advocacy NGO introducing Patachitra to its followers.</p></div><span class="fp-domain">facebook.com</span><a class="fp-link" href="https://www.facebook.com/dastkarsociety/posts/the-traditional-artform-of-patochitra-or-scroll-painting-gained-popularity-in-we/10153180927388979/" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="social"><span class="fp-cat">social</span><div class="fp-body"><h5>Facebook video — patua performance</h5><p>A patar gaan performance shared as native video.</p></div><span class="fp-domain">facebook.com</span><a class="fp-link" href="https://www.facebook.com/watch/?v=403538402296882" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="social"><span class="fp-cat">social</span><div class="fp-body"><h5>Facebook — shared clip</h5><p>Further short-form video circulation of scroll-painting performance.</p></div><span class="fp-domain">facebook.com</span><a class="fp-link" href="https://www.facebook.com/share/r/1EMZ6Ndew9/" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="social"><span class="fp-cat">social</span><div class="fp-body"><h5>BAROMARKETINDIA — Facebook post</h5><p>"Bengal Pattachitra began as a storytelling tradition" — a market-facing page narrating the craft's origin.</p></div><span class="fp-domain">facebook.com</span><a class="fp-link" href="https://www.facebook.com/BAROMARKETINDIA/posts/bengal-pattachitra-bengal-pattachitra-began-as-a-storytelling-tradition-through-/1174419018020869/" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="social"><span class="fp-cat">social</span><div class="fp-body"><h5>YouTube — Patachitra documentation</h5><p>Video record of scroll-painting practice and performance.</p></div><span class="fp-domain">youtube.com</span><a class="fp-link" href="https://www.youtube.com/watch?v=Uie6G3f9bI0" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="social"><span class="fp-cat">social</span><div class="fp-body"><h5>YouTube — Naya village footage</h5><p>Further video documentation of the Patua Gram.</p></div><span class="fp-domain">youtube.com</span><a class="fp-link" href="https://youtu.be/pjb4GjsIHVE" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="social"><span class="fp-cat">social</span><div class="fp-body"><h5>"Folktale of Pattachitra" — craft documentation</h5><p>A shared documentation deck hosted on a document-sharing platform.</p></div><span class="fp-domain">yumpu.com</span><a class="fp-link" href="https://www.yumpu.com/en/document/view/64445804/folktale-of-pattachitra-craft-documentation" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="social"><span class="fp-cat">social</span><div class="fp-body"><h5>Patachitra presentation deck</h5><p>A shared slide deck on the tradition, hosted on Scribd.</p></div><span class="fp-domain">scribd.com</span><a class="fp-link" href="https://www.scribd.com/document/853445722/ppt" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="press"><span class="fp-cat">press</span><div class="fp-body"><h5>"Patachitra Scroll Paintings"</h5><p>A current-affairs explainer aimed at civil-service exam aspirants — a sign of how far into general-knowledge curricula the craft has travelled.</p></div><span class="fp-domain">civilsdaily.com</span><a class="fp-link" href="https://www.civilsdaily.com/news/patachitra-scroll-paintings/" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="press"><span class="fp-cat">press</span><div class="fp-body"><h5>"Alternate Source of Income: Villagers in the Sunderbans Turn to Patachitra for Livelihood"</h5><p>Reporting on the craft spreading beyond Naya as a livelihood strategy.</p></div><span class="fp-domain">millenniumpost.in</span><a class="fp-link" href="https://www.millenniumpost.in/exclusive-news/alternate-source-of-income-villagers-in-the-sunderbans-turn-to-patachitra-for-livelihood-506516" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="press"><span class="fp-cat">press</span><div class="fp-body"><h5>"Patachitra of West Bengal" — design-student blog</h5><p>A personal design-research blog entry on the craft's visual language.</p></div><span class="fp-domain">wordpress.com</span><a class="fp-link" href="https://spaindustrialdesign.wordpress.com/2020/12/22/patachitra-of-west-bengal/" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="press"><span class="fp-cat">press</span><div class="fp-body"><h5>Patachitra article, Eurasia-Art (Russia)</h5><p>International art-journalism coverage — evidence of circulation well beyond South Asia.</p></div><span class="fp-domain">eurasia-art.ru</span><a class="fp-link" href="https://eurasia-art.ru/art/article/view/175" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="press"><span class="fp-cat">press</span><div class="fp-body"><h5>"S.K. Sarkar: Pata Chitras, Cultural Carriers of Indian Society"</h5><p>Profile piece on a Patachitra practitioner as a bearer of cultural memory.</p></div><span class="fp-domain">theachieversjournal.org</span><a class="fp-link" href="https://theachieversjournal.org/wp/s-k-sarkarpata-chitras-cultural-carriers-of-indian-society/" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="portal"><span class="fp-cat">portal</span><div class="fp-body"><h5>POT Maya, Naya-Pingla — festival page</h5><p>The local heritage portal's own festival documentation, also referenced elsewhere on this page.</p></div><span class="fp-domain">midnapore.in</span><a class="fp-link" href="https://www.midnapore.in/festival/potmaya/pot-maya-naya-pingla.html" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="fp-item" data-cat="portal"><span class="fp-cat">portal</span><div class="fp-body"><h5>"Field Trip to Pingla Patachitra Village"</h5><p>A university department's own field-trip write-up — the same kind of visit this project's researchers made.</p></div><span class="fp-domain">bhattercollege.ac.in</span><a class="fp-link" href="https://english.bhattercollege.ac.in/blog/2023/02/field-trip-to-pingla-patachitra-village/" target="_blank" rel="noopener">Visit ↗</a></div>
+    </div>
+    <p class="small-note reveal" style="margin-top:1.4rem;">Also gathered, titles not independently confirmed: <a href="https://www.waucongress2025.org/paper/?id=2245" target="_blank" rel="noopener">WAUCongress 2025 paper #2245</a>, <a href="https://ijcrt.org/papers/IJCRT2512063.pdf" target="_blank" rel="noopener">IJCRT2512063</a>, <a href="https://www.airo.co.in/publications/36927-48625-1-journal-paper-1_ayan-(1)-new-dfgrth.pdf" target="_blank" rel="noopener">AIRO Publications</a>, <a href="https://www.arfjournals.com/image/catalog/Journals%20Papers/SAAN/2024/No.%201/08.pdf" target="_blank" rel="noopener">South Asian Anthropologist (arfjournals)</a>, <a href="http://www.researchspectra.org.in/JournalPapers/V4_I1_P12.pdf" target="_blank" rel="noopener">Research Spectra Journal</a>, <a href="https://ndpublisher.in/admin/issues/IJSSv7n4l.pdf" target="_blank" rel="noopener">New Delhi Publishers — IJSS</a>, and one <a href="https://www.sciencedirect.com/science/article/pii/S1568484926000237" target="_blank" rel="noopener">ScienceDirect record</a> — kept as stable publisher links rather than the original time-limited download URLs.</p>
+  </div>
+</section>
+
+<div class="pata-border"></div>
+
+<section id="models">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Living Models</p>
+      <h2>This project doesn't start from zero</h2>
+      <p class="lede">A working version of much of this already exists. Positioning against it — critique, extension, or complement — is part of the contribution.</p>
+    </div>
+    <div class="model-list reveal">
+      <div class="model-row"><span class="yr">Since 2000</span><div><h4>Bengal Patachitra / banglanatak.com</h4><p>UNESCO-advisory social enterprise; hosts a patua family tree, artist contacts and the annual POT Maya festival.</p></div><a href="https://bengalpatachitra.com" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="model-row"><span class="yr">Ongoing</span><div><h4>Sahapedia</h4><p>Multilingual, Creative-Commons platform mixing scholarly and community contribution — oral history, built heritage, cultural mapping.</p></div><a href="https://www.sahapedia.org" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="model-row"><span class="yr">2014 →</span><div><h4>SAADA</h4><p>The gold-standard post-custodial South Asian community archive, co-founded by Michelle Caswell.</p></div><a href="https://www.saada.org" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="model-row"><span class="yr">Software</span><div><h4>Mukurtu CMS</h4><p>Open-source platform built for communities to manage digital heritage under their own cultural protocols.</p></div><a href="https://mukurtu.org" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="model-row"><span class="yr">2010 →</span><div><h4>POT Maya on Google Arts &amp; Culture</h4><p>Patua-organised festival, now digitised on an institutional platform — a useful contrast case for self-representation.</p></div><a href="https://artsandculture.google.com" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="model-row"><span class="yr">India · AV</span><div><h4>Pad.ma — Public Access Digital Media Archive</h4><p>Indian model for annotated, timestamped video archiving — the closest existing precedent for this project's own audio-visual method.</p></div><a href="https://pad.ma" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="model-row"><span class="yr">India</span><div><h4>Indian Memory Project</h4><p>Anusha Yadav's crowdsourced participatory visual/oral-history archive — proof that a single-curator, community-submitted model can scale nationally.</p></div><a href="https://indianmemoryproject.com" target="_blank" rel="noopener">Visit ↗</a></div>
+      <div class="model-row"><span class="yr">2016 →</span><div><h4>1947 Partition Archive</h4><p>Large-scale crowdsourced oral-history project; selected interviews now held by Stanford Libraries — a model for what "distributed archiving" can look like done well.</p></div><a href="https://www.1947partitionarchive.org" target="_blank" rel="noopener">Visit ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="bibliography">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Working Bibliography</p>
+      <h2>Reading the archive against</h2>
+      <p class="lede">Chicago-style, grouped by the conversation each source belongs to. Full citations continue in the companion reference file.</p>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="biblio-group">
+        <h3>Patachitra of Naya — Core Canon</h3>
+        <ul>
+          <li><b>Korom, Frank J.</b> <i>Village of Painters: Narrative Scrolls from West Bengal.</i> Museum of New Mexico Press, 2006.</li>
+          <li><b>Chatterji, Roma.</b> <i>Speaking with Pictures.</i> Routledge, 2012.</li>
+          <li><b>Bose, Chakraborty &amp; Mukherjee.</b> "Embodying Tradition: Patachitra as a Living Art Form." <i>Journal of Creative Communications</i>, 2025.</li>
+          <li><b>Mukhopadhyay, Bhaskar.</b> "Dream Kitsch — Folk Art, Indigenous Media and '9/11'." <i>Journal of Material Culture</i> 13, no.1 (2008).</li>
+          <li><b>Ponte, Inês.</b> "Cosmopolitan Impressions from a Contemporary Bengali Patachitra Painting Museum Collection in Portugal." <i>Ateliers d'Anthropologie</i> 41 (2015).</li>
+          <li><b>Chatterjee, Ratnabali.</b> "Representation of Gender in the Folk Paintings of Bengal." <span class="unverified-tag">verify venue</span></li>
+          <li><b>Ghosh, Pika.</b> "Unrolling a Narrative Scroll: Artistic Practice and Identity in Late-Nineteenth-Century Bengal." <i>Archives of Asian Art</i> 53 (2002–2003).</li>
+        </ul>
+      </div>
+      <div class="biblio-group">
+        <h3>Patachitra of Naya — Recent Field Scholarship <span class="unverified-tag" style="margin-left:.4rem;">newly located</span></h3>
+        <ul>
+          <li><b>Chakraborty, Soutik.</b> "Art as Storyteller: Scroll Paintings of Naya Village as Mnemonics of Cultural Memory and the Changing Modes in Digital Proliferation." <i>OIIRJ</i> 9, Special Issue 1 (Apr 2019). — the closest existing precedent to this project's own framing.</li>
+          <li><b>Datta Gupta, Saurabh.</b> "Village of Painters: A Visit to Naya, Pingla." <i>Chitrolekha International Magazine on Art and Design</i> 1, no.3 (2011).</li>
+          <li><b>Bera, Sourav.</b> "Patachitra Traditions in Bengal – Evolving Trends: An Overview." <i>JETIR</i> 11, no.3 (March 2024).</li>
+          <li><b>Maitra Bajpai, Lopamudra.</b> "Intangible Heritage Transformations — Patachitra of Bengal Exploring Modern New Media." <i>International Journal of History and Cultural Studies</i> 1, no.1.</li>
+          <li><b>Zanatta, Maura, and Anjali Gera Roy.</b> "Facing the Pandemic: A Perspective on Patachitra Artists of West Bengal." <i>Arts</i> (MDPI) 10, no.3 (2021): 61.</li>
+          <li><b>Das Gupta, Sanjukta.</b> "From 'Folk' to Digital: Transformation of Bengal Paṭacitra Art in the Times of Coronavirus." <i>Naveiñ Reet: Nordic Journal of Law and Social Research</i>, no.12 (2022): 39–62.</li>
+          <li><b>Mandal, Keya.</b> "Origin and Evolution of Patuas and Pata Painting of the District of Paschim Medinipur." <i>The Research Journal of Social Sciences</i> 8, no.11 (Nov 2017).</li>
+          <li><b>Chandra, Sharmila, and Sumantro Mukherjee.</b> "Identity Crisis among the Patuas of East and West Medinipur, West Bengal." <i>Practising Geographer</i> 18, no.2 (Winter 2014): 119–123.</li>
+          <li><b>Paira, Kanchan, and Rajaram Majhi.</b> "A General Analysis of Changes and Problems of Patachitra as a Livelihood." <i>Journal of Humanities and Social Sciences Studies</i> (JHSSS).</li>
+          <li><b>Banik, Subhamoy, and Utpal Kundu.</b> "Patachitra – A Micro Scale Industry: Overview and Challenges." <i>IOSR Journal of Business and Management</i> 20, no.3 (March 2018): 24–29.</li>
+          <li><b>Majumdar, Sanghati, and Jatisankar Bandyopadhyay.</b> "Patachitra – A Cultural Heritage of West Bengal and Odisha." Vidyasagar University.</li>
+          <li><b>Barai, Dipak.</b> "Technical and Analytical Aspect of Traditional and Contemporary Pingla Patachitro." <i>Brainwave: A Multidisciplinary Journal</i> 6, no.2 (2025): 1075–1084.</li>
+        </ul>
+      </div>
+      <div class="biblio-group">
+        <h3>Gajan Ritual</h3>
+        <ul>
+          <li><b>Nicholas, Ralph W.</b> <i>Rites of Spring: Gajan in Village Bengal.</i> 2008.</li>
+          <li>"Dramaturgy of Gajan in Ramjibanpur: Antaja Identity and the Festival." <i>Asian Anthropology</i>, 2025.</li>
+          <li>"Gajan: An Overview." Sahapedia, accessed 2026.</li>
+          <li><b>Ferrari, Fabrizio M.</b> "Playing with Corpses and Worshipping Skulls: Bodily Modifications and Gender Transformations in Rural West Bengal." <i>Contemporary South Asia</i> 14, no.4 (2005).</li>
+          <li><b>Ghosh, P.</b> "Gajan: A Festival of Belief of Rural West Bengal." Book chapter. <span class="unverified-tag">verify publisher/year</span></li>
+          <li><b>Gupta, A.</b> "Folk Festival of Bengal: Gajan, Charak and Neel Puja." Blog post.</li>
+          <li><b>Mondal, T.</b> "The Indigenous Folk Culture and Traditions of Gajan Festival: Theory and Practices." <span class="unverified-tag">verify venue</span></li>
+          <li><b>Saha, A., and S. Halder.</b> "A Tale of Belief: Gajan and Charak." Krishnadebpur.</li>
+          <li><b>Dutta, S.</b> "Creating Folk Pantheon, Performances and Beliefs: A Visual Narrative of Gajan (Hook Swinging) in Bengal." <i>Visual Ethnography Journal</i>.</li>
+          <li>"Regional Variations of the Gajan Festival in West Bengal: A Multidimensional Analysis of Folk Culture" [পশ্চিমবঙ্গে গাজন উৎসবের আঞ্চলিক বৈচিত্র্য]. <i>TIRJ</i>.</li>
+        </ul>
+      </div>
+      <div class="biblio-group">
+        <h3>Critical Heritage Theory</h3>
+        <ul>
+          <li><b>Smith, Laurajane.</b> <i>Uses of Heritage.</i> Routledge, 2006.</li>
+          <li><b>Stoler, Ann Laura.</b> <i>Along the Archival Grain.</i> Princeton University Press, 2009.</li>
+          <li>UNESCO. <i>Convention for the Safeguarding of the Intangible Cultural Heritage.</i> 2003.</li>
+        </ul>
+      </div>
+      <div class="biblio-group">
+        <h3>Community Archives &amp; Digital Humanities</h3>
+        <ul>
+          <li><b>Caswell, Michelle.</b> "Community-Centered Collecting." <i>Proceedings of ASIS&amp;T</i> 51, no.1 (2014).</li>
+          <li><b>Huvila, Isto.</b> "The Participatory Archive." <i>Archival Science</i> 8, no.1 (2008).</li>
+          <li><b>Taylor, Diana.</b> <i>The Archive and the Repertoire.</i> Duke University Press, 2003.</li>
+          <li><b>Risam, Roopika.</b> <i>New Digital Worlds.</i> Northwestern University Press, 2018.</li>
+          <li><b>Sneha, P.P.</b> <i>Mapping Digital Humanities in India.</i> CIS Bangalore, 2016.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pata-border"></div>
+
+<!-- ============================= READING ROOM ============================= -->
+<section id="reading">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Beyond Bengal</p>
+      <h2>The Reading Room</h2>
+      <p class="lede">This project sits inside a wider, ongoing conversation about digital storytelling and audio-visual heritage practice — none of it specific to Patachitra or Gajan, all of it useful for building this archive responsibly. Sources marked <span class="unverified-tag">unconfirmed detail</span> are real, locatable sources whose exact title or authorship this project has not been able to fully verify — flagged rather than guessed at.</p>
+    </div>
+
+    <div class="tab-row reveal">
+      <button class="tab-btn active" data-tab="dhgis">Digital Humanities, GIS &amp; Storytelling</button>
+      <button class="tab-btn" data-tab="avheritage">Audio-Visual Heritage &amp; Archiving Practice</button>
+    </div>
+
+    <div class="tabs-block">
+    <div class="tab-panel active" id="tab-dhgis">
+      <div class="reading-item"><span class="src">Studies in Digital Heritage · 2019</span><h5>Marsili, Giulia, and Lucia Maria Orlandi. "Digital Humanities and Cultural Heritage Preservation: The Case of the BYZART Project."</h5><p>An integration case study (Byzantine Art on Europeana) for exactly the metadata-cataloguing repository type this project proposes.</p><a href="https://shs.hal.science/halshs-02906325/file/Marsili,%20Orlandi_SDH_2020.pdf" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">IJHER · 2025</span><h5>Shee, Sudipta. "Digital Preservation of Cultural Heritage in India: A Digital Age."</h5><p>Surveys India's own infrastructure — National Digital Library, National Mission for Manuscripts, Digital India — the policy layer this project's community-archive model would eventually have to sit inside.</p><a href="https://www.humanitiesjournal.net/archives/2025/vol7issue1/PartC/7-1-38-821.pdf" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">CAIS 2021 <span class="unverified-tag">no stable link found</span></span><h5>Shiri, Ali, Deanna Lyn Howard, and Sharon Farnel. "Indigenous Digital Storytelling for Cultural Heritage Access and Preservation."</h5><p>University of Alberta research on Indigenous-led storytelling infrastructure — a close cousin to the "co-archivist" model proposed here. Located in the project's own reference folder; not linked because no stable public URL could be confirmed for it.</p></div>
+      <div class="reading-item"><span class="src">Eurographics GCH · 2018 <span class="unverified-tag">no stable link found</span></span><h5>Selmanović, E., et al. "VR Video Storytelling for Intangible Cultural Heritage Preservation."</h5><p>Immersive-media approach to the same "how do you archive a performance" problem, from a computer-graphics angle rather than an ethnographic one.</p></div>
+      <div class="reading-item"><span class="src">e-IPH / ICIS 2022, Penang</span><h5>"Audio-Visual Digital Preservation Strategies: A Case Study."</h5><p>Conference paper from the 5th International Conference on Information Science, hosted by the Environment-Behaviour Proceedings journal, on practical AV preservation workflow.</p><a href="https://www.e-iph.co.uk" target="_blank" rel="noopener">Journal home ↗</a></div>
+      <div class="reading-item"><span class="src">IGI Global · 2015</span><h5>"Digital Humanities in Cultural Preservation." Book chapter 9.</h5><p>On libraries and cultural institutions adopting preservation policy — useful comparison for where a community archive sits relative to an institutional one.</p><a href="https://doi.org/10.4018/978-1-4666-8444-7.ch009" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">Sensors (MDPI) · 2025</span><h5>Chang, S., and J. Suh. "The Impact of Digital Storytelling on Presence, Immersion, Enjoyment, and Continued Usage Intention in VR-Based Museum Exhibitions."</h5><p>Empirical data on whether immersive storytelling actually improves visitor engagement — relevant to any future VR/AR component of this archive.</p><a href="https://doi.org/10.3390/s25092914" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">Smart Learning Environments · 2014</span><h5>Smeda, N., E. Dakich, and N. Sharda. "The Effectiveness of Digital Storytelling in the Classrooms: A Comprehensive Study."</h5><p>Education-focused, but its findings on comprehension and engagement generalise to any storytelling-based heritage interface.</p><a href="https://doi.org/10.1186/s40561-014-0006-3" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">Sustainability (MDPI) · 2021</span><h5>"Digital Storytelling in Cultural Heritage: Audience Engagement in the Interactive Documentary <i>New Life</i>."</h5><p>Seven years of web-metrics on one interactive documentary — a model for evaluating whether a digital archive is actually being used, not just built.</p><a href="https://www.mdpi.com/2071-1050/13/3/1193" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">arXiv preprint</span><h5>Beguš, Nina. "World Wide Models: Literary Tools for Cultural AI."</h5><p>On what literary/DH method can bring to how AI systems encounter culture — relevant background as this project considers AI-assisted cataloguing.</p><a href="https://arxiv.org/abs/2607.02369" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">RSIS International</span><h5>"Crafting Connection: Digital Storytelling in Community-Based Tourism."</h5><p>Direct parallel to the tourism/commercialisation pressures on Patachitra and the Patachitra Mela.</p><a href="https://rsisinternational.org/journals/ijriss/articles/crafting-connection-digital-storytelling-in-community-based-tourism/" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">Media Practice and Education · 2024</span><h5>Scott, Daryl. "Videographic Criticism and the Art of Creative Thinking."</h5><p>A framework for treating video-essay work itself as scholarship — relevant to how this project's own audio-visual recordings might be written about, not just archived.</p><a href="https://www.tandfonline.com/doi/full/10.1080/25741136.2024.2411645" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">Consensus (AI research tool)</span><h5>Synthesized answer: "What impact does digital storytelling have on cultural preservation?"</h5><p>Useful as a fast survey of the field's consensus — not a substitute for reading the primary sources above it draws on.</p><a href="https://consensus.app/questions/what-impact-digital-storytelling-cultural-preservation/" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">HiGHER-eu project</span><h5>"Digital Storytelling: A Tool for Cultural Democratization and Local-Based Narration."</h5><p>EU project framing digital storytelling explicitly as a democratization tool — echoes this project's "co-archivist, not informant" argument.</p><a href="https://highres-project.eu/digital-storytelling-a-tool-for-cultural-democratization-and-local-based-narration" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">Journal of Digital Art &amp; Humanities <span class="unverified-tag">article unconfirmed</span></span><h5>JDAH, issue 62-4 — digital arts and humanities practice.</h5><p>ISSN 2712-8148, a biannual venue for digital-humanities practice papers; this project has not been able to confirm the exact article title at this issue number.</p><a href="https://ics.events/journal-of-digital-art-humanities/" target="_blank" rel="noopener">Journal home ↗</a></div>
+      <div class="reading-item"><span class="src">Further sources <span class="unverified-tag">titles unconfirmed</span></span><h5>Real, locatable records this project could not fully verify before publishing — flagged rather than guessed at, per the Endings principle of relentless validation.</h5>
+        <p style="margin-top:.6rem;">
+          <a href="https://ics.events/wp-content/uploads/2026/06/JDAH-62-4.pdf" target="_blank" rel="noopener">JDAH 62-4 (original PDF)</a> ·
+          <a href="https://www.eejournals.org/public/uploads/1740488976_81454a4b4dec6f13ee05.pdf" target="_blank" rel="noopener">EEJournals paper</a> ·
+          <a href="https://dl.acm.org/doi/10.1145/3705613" target="_blank" rel="noopener">ACM DL 3705613</a> ·
+          <a href="https://dl.acm.org/doi/10.1145/3328320.3328367" target="_blank" rel="noopener">ACM DL 3328320.3328367</a> ·
+          <a href="https://www.intechopen.com/chapters/88064" target="_blank" rel="noopener">IntechOpen ch.88064</a> ·
+          <a href="https://files.eric.ed.gov/fulltext/EJ1125504.pdf" target="_blank" rel="noopener">ERIC EJ1125504</a> ·
+          <a href="https://www.questjournals.org/jrhss/papers/vol11-issue2/1102205209.pdf" target="_blank" rel="noopener">JRHSS 11(2)</a> ·
+          <a href="https://www.sciencedirect.com/science/article/pii/S1871187123002262" target="_blank" rel="noopener">ScienceDirect record</a> ·
+          <a href="https://watermark02.silverchair.com/fqaf157.pdf" target="_blank" rel="noopener">Silverchair/OUP article</a> ·
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7548500/pdf/IJPH-49-1395.pdf" target="_blank" rel="noopener">PMC7548500 (Indian J. Public Health)</a> ·
+          <a href="https://www.youtube.com/watch?v=EZ9GIcQySsU" target="_blank" rel="noopener">YouTube talk</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-avheritage">
+      <div class="reading-item"><span class="src">Conference paper · 2014</span><h5>Bsir, B., and A. Al Jamoudi. "The Importance of Audio-Visual Archives in Public Radio and Television Stations."</h5><p>2nd International Conference on Applied Information and Communications Technology, Muscat, Oman.</p><a href="https://www.researchgate.net/publication/289317369_The_Importance_of_Audio-visual_archives_in_public_Radio_and_Television_stations" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">UNESCO · 1997</span><h5>Harrison, Helen P. <i>Audiovisual Archives: A Practical Reader.</i></h5><p>Document CII.97/WS/4 — still one of the clearest primers on the specific technical and ethical problems of archiving sound and image.</p><a href="https://unesdoc.unesco.org/ark:/48223/pf0000109612" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">National Geographic Education</span><h5>"Storytelling and Cultural Traditions" (teaching resource).</h5><p>A general framing of oral storytelling's role in cultural transmission — useful as an accessible entry point for non-specialist readers of this archive.</p><a href="https://education.nationalgeographic.org/resource/storytelling-and-cultural-traditions/" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">Culture Partnership (EU)</span><h5>"5 Digital Experiments in Cultural Heritage."</h5><p>Short-form case studies of unconventional digital heritage projects, several outside the usual Anglo-American canon this literature review already flags as a gap.</p><a href="https://www.culturepartnership.eu/en/article/5-digital-experiments-cultural-heritage" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">UNESCO</span><h5>"Digitizing and Activating UNESCO's Audiovisual Heritage: Partnership with France and Monaco."</h5><p>A live example of the "distributed archiving" model the Endings Project warns will multiply intellectual-property and access questions — worth reading against that caution.</p><a href="https://www.unesco.org/en/articles/digitizing-and-activating-unescos-audiovisual-heritage-partnership-france-and-monaco" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">ICA / PAAG</span><h5>World Day for Audiovisual Heritage.</h5><p>The International Council on Archives' annual observance (27 October) — a useful anchor date for any future public engagement calendar around this archive.</p><a href="https://www.ica.org/ica-network/expert-groups/paag/world-day-for-audiovisual-heritage/" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">National Library of New Zealand</span><h5>Utaina — Audiovisual Digital Preservation Project.</h5><p>A nationwide partnership (Archives NZ, National Library, Ngā Taonga Sound &amp; Vision) digitising audiovisual taonga at scale. Its name — "load the precious freight on board," from Sir Āpirana Ngata's advocacy for recording Māori language — is as close a philosophical cousin to this project's mission as exists anywhere in the world.</p><a href="https://natlib.govt.nz/about-us/collaborative-projects/utaina-audiovisual-digital-preservation-project" target="_blank" rel="noopener">Read ↗</a></div>
+      <div class="reading-item"><span class="src">Getty Images</span><h5>Gajan Festival in India — photograph collection.</h5><p>A licensed stock-photo archive of Gajan imagery. Referenced here as a visual index only; no images from it are reproduced on this page, in keeping with this project's own attribution ethics.</p><a href="https://www.gettyimages.in/photos/gajan-festival-in-india" target="_blank" rel="noopener">View ↗</a></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<div class="pata-border flip"></div>
+
+<!-- ============================= CITE THIS PROJECT ============================= -->
+<section id="cite">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Endings Principle 5.4</p>
+      <h2>Cite this project</h2>
+      <p class="lede">"Web resources should include detailed instructions for citation, so that end-users can unambiguously cite a specific page from a specific edition." Pick a style, copy it, done — remember to swap in the URL once this page is actually hosted.</p>
+    </div>
+    <div class="cite-box reveal">
+      <div class="cite-tabs">
+        <button class="cite-tab active" data-cite="apa">APA</button>
+        <button class="cite-tab" data-cite="mla">MLA</button>
+        <button class="cite-tab" data-cite="chicago">Chicago</button>
+        <button class="cite-tab" data-cite="bibtex">BibTeX</button>
+      </div>
+      <div class="cite-panel active" data-panel="apa">
+        <pre id="cite-text-apa">Pramanik, D., &amp; Nandi, S. (2026). From oral tradition to digital archive: Audio-visual storytelling and cultural memory in Paschim Medinipur (Version 1.1) [Digital humanities research project]. IIT (ISM) Dhanbad. https://your-username.github.io/your-repo-name/</pre>
+        <button class="cite-copy" data-target="cite-text-apa">Copy citation</button>
+      </div>
+      <div class="cite-panel" data-panel="mla">
+        <pre id="cite-text-mla">Pramanik, Disha, and Simanta Nandi. "From Oral Tradition to Digital Archive: Audio-Visual Storytelling and Cultural Memory in Paschim Medinipur." Version 1.1, IIT (ISM) Dhanbad, 2026, your-username.github.io/your-repo-name/.</pre>
+        <button class="cite-copy" data-target="cite-text-mla">Copy citation</button>
+      </div>
+      <div class="cite-panel" data-panel="chicago">
+        <pre id="cite-text-chicago">Pramanik, Disha, and Simanta Nandi. "From Oral Tradition to Digital Archive: Audio-Visual Storytelling and Cultural Memory in Paschim Medinipur." Digital humanities research project, version 1.1. IIT (ISM) Dhanbad, 2026. https://your-username.github.io/your-repo-name/.</pre>
+        <button class="cite-copy" data-target="cite-text-chicago">Copy citation</button>
+      </div>
+      <div class="cite-panel" data-panel="bibtex">
+        <pre id="cite-text-bibtex">@misc{pramanik_nandi_2026_medinipur,
+  author       = {Pramanik, Disha and Nandi, Simanta},
+  title        = {From Oral Tradition to Digital Archive: Audio-Visual
+                  Storytelling and Cultural Memory in Paschim Medinipur},
+  year         = {2026},
+  version      = {1.1},
+  institution  = {IIT (ISM) Dhanbad},
+  note         = {Digital humanities research project},
+  url          = {https://your-username.github.io/your-repo-name/}
+}</pre>
+        <button class="cite-copy" data-target="cite-text-bibtex">Copy citation</button>
+      </div>
+    </div>
+    <p class="small-note reveal" style="margin-top:1rem;">Replace <code>your-username.github.io/your-repo-name</code> with your live GitHub Pages URL after publishing — see the README for the exact steps.</p>
+  </div>
+</section>
+
+<div class="pata-border"></div>
+
+<section id="team">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Researchers</p>
+      <h2>Who's holding the scroll</h2>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="team-card">
+        <div class="avatar" aria-hidden="true"></div>
+        <div>
+          <h4>Disha Pramanik</h4>
+          <span class="role">MA, Digital Humanities &amp; Social Sciences, IIT (ISM) Dhanbad</span>
+          <p>Also interning at IIT Kharagpur on stylometry analysis. Her work explores city narratives and gendered spatiality through text mining and annotation tools, at the intersection of computational method and literary interpretation.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar" aria-hidden="true"></div>
+        <div>
+          <h4>Simanta Nandi</h4>
+          <span class="role">MA 2nd Year, Digital Humanities &amp; Social Sciences, IIT (ISM) Dhanbad</span>
+          <p>BA in Comparative Literature, Jadavpur University, with a specialisation in translation through CENTIL. Participated in the UNESCO World Heritage Education Programme and a British Library archival digitisation workshop. Research spans digital archiving, cultural heritage, AI and electronic literature.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="fmark">FROM ORAL TRADITION TO DIGITAL ARCHIVE<br>Paschim Medinipur, West Bengal · v1.1, built 2026-07-08</div>
+      <p class="fnote">A community-facing prototype archive built as a digital humanities research artifact. Field data, translations and images belong to the communities of Naya, Rahatpur, Anandapur and Ramjibanpur, and to the researchers who recorded them with consent. Sustainability approach adapted from the <a href="https://endings.uvic.ca/about.html" target="_blank" rel="noopener">Endings Project</a>, University of Victoria. Built as a single static file for hosting on <a href="https://pages.github.com" target="_blank" rel="noopener">GitHub Pages</a>.</p>
+    </div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--cream-dim);text-align:right;min-width:170px;">
+      <div style="border:1px solid rgba(244,236,218,.3);display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .7rem;margin-bottom:.6rem;">
+        <span>CC BY-NC-SA 4.0</span>
+      </div>
+      <br>
+      <a href="#cite">How to cite this page ↑</a>
+    </div>
+  </div>
+</footer>
+
+<button id="top-btn" aria-label="Back to top">↑</button>
+
+<script>
+(function(){
+  "use strict";
+  var gate = document.getElementById('gate');
+  var box = document.getElementById('gate-box');
+  var enter = document.getElementById('gate-enter');
+  box.addEventListener('change', function(){ enter.classList.toggle('ready', box.checked); });
+  function openSite(){
+    gate.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    setTimeout(function(){ document.body.classList.add('unfurled'); }, 250);
+  }
+  enter.addEventListener('click', function(){ if(box.checked){ openSite(); } });
+  document.body.style.overflow = 'hidden';
+
+  var toggle = document.getElementById('nav-toggle');
+  var links = document.querySelector('nav.links');
+  toggle.addEventListener('click', function(){
+    var open = links.style.display === 'flex';
+    links.style.display = open ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'fixed';
+    links.style.top = '58px';
+    links.style.right = '1rem';
+    links.style.background = '#F4ECDA';
+    links.style.border = '1px solid #1C2541';
+    links.style.padding = '1rem 1.4rem';
+    links.style.gap = '.9rem';
+  });
+
+  document.querySelectorAll('.grid-2, .grid-3, .keywords').forEach(function(el){ el.classList.add('reveal-stagger'); });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(function(el){ io.observe(el); });
+
+  document.querySelectorAll('.tab-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var scope = btn.closest('section') || document;
+      scope.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      scope.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  /* ---------- DIGITAL FOOTPRINT: filter existing static rows (works without JS too — this just narrows the view) ---------- */
+  var fpItems = Array.prototype.slice.call(document.querySelectorAll('.fp-item'));
+  var fpCount = document.getElementById('fp-count');
+  function renderFP(filter){
+    var shown = 0;
+    fpItems.forEach(function(it){
+      var match = (filter==='all' || it.dataset.cat===filter);
+      it.classList.toggle('fp-hidden', !match);
+      if(match) shown++;
+    });
+    if(fpCount) fpCount.textContent = shown + ' of ' + fpItems.length + ' sources shown.';
+  }
+  document.querySelectorAll('.filter-chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      document.querySelectorAll('.filter-chip').forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      renderFP(chip.dataset.cat);
+    });
+  });
+  document.querySelector('.filter-chip[data-cat="all"]').textContent = 'All sources (' + fpItems.length + ')';
+  renderFP('all');
+
+  /* ---------- CITE WIDGET ---------- */
+  document.querySelectorAll('.cite-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var box = tab.closest('.cite-box');
+      box.querySelectorAll('.cite-tab').forEach(function(t){ t.classList.remove('active'); });
+      box.querySelectorAll('.cite-panel').forEach(function(p){ p.classList.remove('active'); });
+      tab.classList.add('active');
+      box.querySelector('.cite-panel[data-panel="'+tab.dataset.cite+'"]').classList.add('active');
+    });
+  });
+  document.querySelectorAll('.cite-copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = document.getElementById(btn.dataset.target).textContent;
+      var done = function(){
+        var original = btn.textContent;
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('copied');
+        setTimeout(function(){ btn.textContent = original; btn.classList.remove('copied'); }, 1800);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done).catch(function(){
+          var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select();
+          try{ document.execCommand('copy'); done(); }catch(e){} document.body.removeChild(ta);
+        });
+      } else {
+        var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); done(); }catch(e){} document.body.removeChild(ta);
+      }
+    });
+  });
+
+  var sections = ['hero','abstract','thesis','traditions','map','songs','method','coarchivist','ethics','footprint','models','bibliography','reading','cite','team'];
+  var rail = document.getElementById('dot-rail');
+  sections.forEach(function(id){
+    var b = document.createElement('button');
+    b.dataset.target = id; b.title = id;
+    b.addEventListener('click', function(){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); });
+    rail.appendChild(b);
+  });
+  var dotBtns = rail.querySelectorAll('button');
+  var railIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var idx = sections.indexOf(e.target.id);
+      if(e.isIntersecting && idx > -1){
+        dotBtns.forEach(function(d){ d.classList.remove('active'); });
+        dotBtns[idx].classList.add('active');
+      }
+    });
+  }, {threshold:.4});
+  sections.forEach(function(id){ railIO.observe(document.getElementById(id)); });
+
+  var topBtn = document.getElementById('top-btn');
+  window.addEventListener('scroll', function(){ topBtn.classList.toggle('show', window.scrollY > 800); });
+  topBtn.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+
+  document.querySelectorAll('nav.links a').forEach(function(a){ a.addEventListener('click', function(){ links.style.display=''; }); });
+})();
+</script>
+</body>
+</html>
