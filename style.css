@@ -468,9 +468,13 @@ body::before{
 }
 :root[data-theme="dark"] body::before{opacity:.06;}
 /* Anything with its own opaque background sits above the texture, so the
-   pattern shows through the cream page body and never over a dark panel. */
-header.site-nav,main,footer.site-footer,.page-banner,.pata-border,.pata-frieze,#scroll-progress,.a11y-drawer,.a11y-scrim,#gate-overlay{position:relative;z-index:1;}
-header.site-nav{z-index:60;}
+   pattern shows through the cream page body and never over a dark panel.
+   Only elements with no positioning of their own belong here: the sticky
+   header, the welcome gate, the progress bar and the drawer each set their
+   own position and a higher z-index, and naming them here overrode that --
+   which knocked the gate out of its full-screen overlay and un-stuck the
+   header. */
+main,footer.site-footer,.page-banner,.pata-border{position:relative;z-index:1;}
 
 /* a horizontal register of folk figures that drifts like an unrolling pat */
 .pata-frieze{position:relative;height:84px;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg-sunken);}
