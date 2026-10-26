@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AR / VR Mode — Chitragāthā — The Living Archive of Gajan & Patachitra</title>
+<meta name="description" content="Step inside original, WebXR-ready 3D scenes of the Gajan ritual and the Patachitra scroll-painting process.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><rect width='120' height='120' rx='16' fill='%231C2541'/><circle cx='60' cy='60' r='46' fill='none' stroke='%23E7A93C' stroke-width='3'/><path d='M60 34c3 6 3 9 0 13m0-13c-3 6-3 9 0 13' stroke='%23F4ECDA' stroke-width='4' stroke-linecap='round'/><path d='M46 38c4 6 8 8 14 8s10-2 14-8' stroke='%23F4ECDA' stroke-width='4' stroke-linecap='round'/><rect x='40' y='68' width='40' height='20' rx='3' fill='none' stroke='%23A63A2E' stroke-width='4'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,500;1,600&family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>.xr-stage{padding:0;}</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./three.module.min.js",
+    "three/addons/": "./"
+  }
+}
+</script>
+</head>
+<body data-sound-scene="gajan">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div id="scroll-progress"></div>
+<div id="a11y-drawer" class="a11y-drawer" role="dialog" aria-modal="false" aria-label="Accessibility and reading options">
+  <div class="a11y-drawer-head">
+    <p class="eyebrow" style="margin:0;">Reading &amp; Accessibility</p>
+    <button type="button" class="a11y-close" id="a11y-close" aria-label="Close accessibility options">&times;</button>
+  </div>
+  <p class="small-note" style="margin:.2rem 0 1rem;">Every choice here is remembered in your own browser only, and nothing is sent anywhere.</p>
+  <div class="a11y-row">
+    <label class="a11y-switch" for="opt-contrast">
+      <span><b>High contrast</b><em>Stronger text and borders</em></span>
+      <input type="checkbox" id="opt-contrast"><span class="track" aria-hidden="true"></span>
+    </label>
+  </div>
+  <div class="a11y-row">
+    <label class="a11y-switch" for="opt-motion">
+      <span><b>Reduce motion</b><em>Stop animations and flights</em></span>
+      <input type="checkbox" id="opt-motion"><span class="track" aria-hidden="true"></span>
+    </label>
+  </div>
+  <div class="a11y-row">
+    <label class="a11y-switch" for="opt-font">
+      <span><b>Readable font</b><em>Atkinson Hyperlegible for all text</em></span>
+      <input type="checkbox" id="opt-font"><span class="track" aria-hidden="true"></span>
+    </label>
+  </div>
+  <div class="a11y-row">
+    <label class="a11y-switch" for="opt-underline">
+      <span><b>Underline links</b><em>Make every link stand out</em></span>
+      <input type="checkbox" id="opt-underline"><span class="track" aria-hidden="true"></span>
+    </label>
+  </div>
+  <div class="a11y-row">
+    <p class="tag" style="margin-bottom:.5rem;">Text size</p>
+    <p class="small-note" style="margin:0 0 .6rem;">Scales every piece of text on the site.</p>
+    <div class="fs-row">
+      <button type="button" class="fs-step" id="fs-minus-2" aria-label="Decrease text size">A&minus;</button>
+      <span class="fs-readout" id="fs-readout">100%</span>
+      <button type="button" class="fs-step" id="fs-plus-2" aria-label="Increase text size">A+</button>
+    </div>
+  </div>
+  <div class="a11y-row">
+    <p class="tag" style="margin-bottom:.5rem;">Soundscape volume</p>
+    <p class="small-note" style="margin:0 0 .6rem;">The ambient Gajan piece is generated live in your browser. Use the speaker button in the corner to switch it on or off; this sets how loud it sits.</p>
+    <input type="range" id="opt-volume" class="a11y-range" min="0" max="100" value="75" aria-label="Soundscape volume">
+  </div>
+  <div class="a11y-row a11y-lang">
+    <p class="tag" style="margin-bottom:.5rem;">Language</p>
+    <p class="small-note" style="margin:0 0 .6rem;">Translate this page into বাংলা (Bengali) or back into English. Choosing a language opens the page through Google Translate, which reads the page in order to translate it.</p>
+    <div id="google_translate_element"></div>
+  </div>
+  <div class="a11y-row a11y-lang">
+    <p class="tag" style="margin-bottom:.5rem;">Narration voice</p>
+    <p class="small-note" style="margin:0 0 .6rem;">Which voice the <b>Narrate</b> buttons use. Bengali narration needs a Bengali voice installed in your browser, and reads the page best once it has been translated above.</p>
+    <div class="narrate-lang-switch" role="group" aria-label="Narration language">
+      <button type="button" class="nlang-btn active" data-nlang="auto">Auto</button>
+      <button type="button" class="nlang-btn" data-nlang="en">English</button>
+      <button type="button" class="nlang-btn" data-nlang="bn">বাংলা</button>
+    </div>
+    <p class="small-note" id="narrate-voice-note" style="margin:.6rem 0 0;"></p>
+  </div>
+</div>
+<div class="a11y-scrim" id="a11y-scrim" hidden></div>
+
+<header class="site-nav">
+  <div class="nav-row">
+    <a class="brandmark" href="index.html"><span class="brand-mark"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" stroke="currentColor" stroke-width="1.1" opacity=".45"/>
+  <circle cx="60" cy="60" r="40" stroke="currentColor" stroke-width="1" stroke-dasharray="2 5" opacity=".5"/>
+  <circle cx="60.00" cy="8.00" r="2.10" fill="currentColor"/>
+<circle cx="82.56" cy="13.15" r="2.10" fill="currentColor"/>
+<circle cx="100.66" cy="27.58" r="2.10" fill="currentColor"/>
+<circle cx="110.70" cy="48.43" r="2.10" fill="currentColor"/>
+<circle cx="110.70" cy="71.57" r="2.10" fill="currentColor"/>
+<circle cx="100.66" cy="92.42" r="2.10" fill="currentColor"/>
+<circle cx="82.56" cy="106.85" r="2.10" fill="currentColor"/>
+<circle cx="60.00" cy="112.00" r="2.10" fill="currentColor"/>
+<circle cx="37.44" cy="106.85" r="2.10" fill="currentColor"/>
+<circle cx="19.34" cy="92.42" r="2.10" fill="currentColor"/>
+<circle cx="9.30" cy="71.57" r="2.10" fill="currentColor"/>
+<circle cx="9.30" cy="48.43" r="2.10" fill="currentColor"/>
+<circle cx="19.34" cy="27.58" r="2.10" fill="currentColor"/>
+<circle cx="37.44" cy="13.15" r="2.10" fill="currentColor"/>
+  <g>
+    <path d="M60 30c3 6 3 9 0 13m0-13c-3 6-3 9 0 13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M48 32c3 5 7 7 12 7s9-2 12-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M60 18v8M48 32l-3-8m3 8l2-9m13 9l3-8m-3 8l-2-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M60 43v22" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <rect x="40" y="65" width="40" height="22" rx="2" stroke="currentColor" stroke-width="2.2"/>
+    <circle cx="40" cy="76" r="4.5" stroke="currentColor" stroke-width="2"/>
+    <circle cx="80" cy="76" r="4.5" stroke="currentColor" stroke-width="2"/>
+    <path d="M47 72h26M47 80h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+</svg></span><span class="brand-lines"><b>Chitragāthā</b>Gajan &amp; Patachitra · Paschim Medinipur</span></a>
+    <nav class="links" id="nav-links"><div class="nav-item" data-active="false"><a href="index.html">Home</a></div><div class="nav-item" data-active="false"><a href="about.html" class="nav-btn">Project &amp; About ▾</a><div class="dropdown"><a href="about.html">About the Project</a><a href="team.html">Our Team</a></div></div><div class="nav-item" data-active="true"><a href="explore.html" class="nav-btn">Explore ▾</a><div class="dropdown"><a href="explore.html">Explore Hub</a><a href="explore-gajan.html">Gajan</a><a href="explore-patachitra.html">Patachitra</a><a href="explore-immersive.html">AR / VR Mode</a><a href="sources.html">Sources &amp; Scholarship</a></div></div><div class="nav-item" data-active="false"><a href="licensing.html" class="nav-btn">Governance &amp; Contact ▾</a><div class="dropdown"><a href="licensing.html">Licensing &amp; Ethics</a><a href="credits.html">Credits &amp; Acknowledgements</a><a href="faq.html">FAQ</a><a href="cite.html">Cite This Project</a><a href="contact.html">Contact</a></div></div></nav>
+    <div class="nav-tools">
+      <div class="a11y-panel">
+        <button class="tool-btn" id="fs-minus" title="Decrease text size" aria-label="Decrease text size">A-</button>
+        <button class="tool-btn" id="fs-plus" title="Increase text size" aria-label="Increase text size">A+</button>
+        <button class="tool-btn" id="sound-fab" aria-pressed="false" title="Toggle ambient soundscape" aria-label="Toggle ambient soundscape">
+          <span id="sound-icon-on" style="display:none;"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 9v6h4l6 5V4l-6 5H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M17 8.5a6 6 0 0 1 0 7M19.5 6a9.5 9.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span id="sound-icon-off"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 9v6h4l6 5V4l-6 5H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <button class="tool-btn" id="theme-toggle" title="Toggle dark / light mode" aria-label="Toggle dark or light mode"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4.4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+        <button class="tool-btn" id="a11y-toggle" title="Accessibility &amp; reading options" aria-label="Accessibility and reading options" aria-expanded="false" aria-controls="a11y-drawer"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="7.1" r="1.5" fill="currentColor"/><path d="M7.4 10.2c3 .9 6.2.9 9.2 0M12 10.6v4m0 0l-2.3 4.1M12 15.2l2.3 4.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="tool-btn nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">≡</button>
+    </div>
+  </div>
+</header>
+<div class="page-banner"><div class="wrap"><div class="crumb"><a href="index.html">Home</a> / Explore / AR &amp; VR Mode</div><p class="eyebrow">Explore</p><h1>AR / VR Mode</h1><p>Real WebXR, built from original 3D scenes of the ritual and the scroll.</p></div></div>
+<main id="main-content">
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Explore — AR / VR Mode</p>
+    <p class="lede">Two original 3D scenes you can step inside: a Gajan ritual space and a Patachitra scroll-painting studio, built entirely from procedural geometry and hand-painted canvas textures — no photographs, no downloaded models, no borrowed art. Press <b>Play a Film</b> to choose a short, narrated cinematic film for a single voice, or the Full Documentary that moves through every voice in chapters — narrated in English or বাংলা (Bengali). Or skip straight to free exploration: on a WebXR-capable phone or headset, the AR and VR buttons below start a real immersive session through the browser's own <code>navigator.xr</code> API; everywhere else, drag to orbit the scene and tap a glowing marker for its story.</p>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="xr-stage reveal">
+      <div class="xr-toolbar">
+        <div class="scene-switch" role="tablist" aria-label="Choose a scene">
+          <button type="button" class="active" data-scene="gajan" role="tab" aria-selected="true"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="22" stroke="currentColor" stroke-width="2.2"/><circle cx="32" cy="32" r="4" stroke="currentColor" stroke-width="2"/><path d="M32 10v8M32 46v8M10 32h8M46 32h8M17 17l6 6M41 41l6 6M47 17l-6 6M23 41l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Gajan Ritual</button>
+          <button type="button" data-scene="patachitra" role="tab" aria-selected="false"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M44 8l12 12-20 20-12-4 4-12z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M24 36l-4 4c-3 3-4 7-4 12 5 0 9-1 12-4l4-4" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="12" cy="52" r="3" stroke="currentColor" stroke-width="2"/></svg> Patachitra Studio</button>
+        </div>
+        <div id="xr-buttons" class="xr-buttons"></div>
+      </div>
+      <div class="film-cta-row">
+        <div class="film-menu-wrap">
+          <button type="button" id="film-menu-btn" class="btn film-cta" aria-haspopup="true" aria-expanded="false">▶ Play a Film ▾</button>
+          <div id="film-menu" class="film-menu" role="menu"></div>
+        </div>
+        <div class="film-lang-toggle" role="group" aria-label="Narration language">
+          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="bn">বাংলা</button>
+        </div>
+        <p class="small-note">A short film for one voice, or the full documentary — narrated in English or বাংলা where your browser supports it.</p>
+        <p class="small-note film-lang-warn" id="film-lang-note"></p>
+      </div>
+      <div id="xr-canvas-host" class="xr-canvas-host">
+        <div class="letterbox-bar top"></div>
+        <div class="letterbox-bar bottom"></div>
+        <div id="xr-overlay"></div>
+        <div id="film-caption" class="film-caption">
+          <p class="tag" id="film-chapter-num">Chapter 1 / 7</p>
+          <h3 id="film-title">—</h3>
+          <p id="film-body"></p>
+        </div>
+        <div id="film-controls" class="film-controls">
+          <button type="button" id="film-prev" aria-label="Previous chapter">⏮</button>
+          <button type="button" id="film-playpause" aria-label="Pause">⏸</button>
+          <button type="button" id="film-next" aria-label="Next chapter">⏭</button>
+          <div id="film-dots" class="film-dots"></div>
+          <button type="button" id="film-exit" class="film-exit">Exit Film ✕</button>
+        </div>
+        <div id="hotspot-panel" class="hotspot-panel">
+          <button type="button" id="hotspot-close" class="hotspot-close" aria-label="Close">×</button>
+          <p class="tag" id="hotspot-title">—</p>
+          <p id="hotspot-body"></p>
+          <button type="button" id="hotspot-narrate" class="btn small outline">▶ Narrate</button>
+        </div>
+      </div>
+      <p id="xr-status" class="xr-status"></p>
+      <p id="xr-support-note" class="small-note" style="padding:0 1.2rem 1.2rem;">Checking this device for WebXR support…</p>
+    </div>
+    <p class="small-note reveal" style="margin-top:1.2rem;">Free-explore controls: drag to orbit, scroll or pinch to zoom, tap a glowing marker for its story — readable aloud with the Narrate button. During the film, use the chapter dots or prev/next to move around, pause any time, or exit back to free exploration.</p>
+  </div>
+</section>
+
+<div class="pata-border"></div>
+
+<section style="background:var(--bg-sunken);">
+  <div class="wrap">
+    <p class="eyebrow">What's Actually Inside Each Scene</p>
+    <div class="grid-2" style="margin-top:1.6rem;">
+      <div class="card reveal">
+        <p class="tag">Gajan Ritual Space</p>
+        <p>A temple platform, a rotating charak wheel, a trishul, a dhak drum and a live particle-system flame — the film's seven chapters are drawn directly from the field interviews with Dipak Pramanik, Manjulata Pramanik, Soumen Chakrabarty, Ankan Karmakar and Nirmal Pramanik; the same elements stay explorable afterward as hotspots.</p>
+      </div>
+      <div class="card reveal">
+        <p class="tag">Patachitra Studio</p>
+        <p>An unrolling scroll carrying an original, procedurally painted narrative panel (generated fresh in your browser, in the pigment palette documented on the <a href="explore-patachitra.html">Patachitra page</a>), orbited by floating pigment pots and a drifting brush — the film walks through the pigment recipe and the three named performers behind this project's three recorded songs: Shiuli, Ruksana and Sabera Chitrakar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <h5>Chitragāthā</h5>
+      <p>A community-grounded digital-humanities archive of Gajan ritual and Patachitra scroll-painting traditions in Paschim Medinipur, West Bengal — built by two researchers from IIT (ISM) Dhanbad, shared under Creative Commons with Indigenous-data-sovereignty safeguards.</p>
+      <p style="margin-top:1rem;"><button type="button" class="btn small outline" id="footer-a11y-open">Language &amp; accessibility options</button></p>
+    </div>
+    <div>
+      <h5>Project &amp; About</h5>
+      <a href="about.html">About the Project</a>
+      <a href="team.html">Our Team</a>
+    </div>
+    <div>
+      <h5>Explore</h5>
+      <a href="explore-gajan.html">Gajan</a>
+      <a href="explore-patachitra.html">Patachitra</a>
+      <a href="explore-immersive.html">AR / VR Mode</a>
+      <a href="sources.html">Sources &amp; Scholarship</a>
+    </div>
+    <div>
+      <h5>Governance</h5>
+      <a href="licensing.html">Licensing &amp; Ethics</a>
+      <a href="credits.html">Credits &amp; Acknowledgements</a>
+      <a href="faq.html">FAQ</a>
+      <a href="cite.html">Cite This Project</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Chitragāthā. All rights reserved, except where the licence on this page grants permission. <a href="licensing.html">Text and data licensed CC BY-NC 4.0</a>. Participants' recorded words and images remain theirs; third-party sources keep their own terms.</span>
+  </div>
+</footer>
+<script src="app.js"></script>
+<script type="module" src="immersive.js"></script>
+</body>
+</html>
