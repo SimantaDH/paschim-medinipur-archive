@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About the Project — Chitragāthā — The Living Archive of Gajan & Patachitra</title>
+<meta name="description" content="Project brief, objectives and build method for the Gajan & Patachitra digital archive.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><rect width='120' height='120' rx='16' fill='%231C2541'/><circle cx='60' cy='60' r='46' fill='none' stroke='%23E7A93C' stroke-width='3'/><path d='M60 34c3 6 3 9 0 13m0-13c-3 6-3 9 0 13' stroke='%23F4ECDA' stroke-width='4' stroke-linecap='round'/><path d='M46 38c4 6 8 8 14 8s10-2 14-8' stroke='%23F4ECDA' stroke-width='4' stroke-linecap='round'/><rect x='40' y='68' width='40' height='20' rx='3' fill='none' stroke='%23A63A2E' stroke-width='4'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,500;1,600&family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=202610271933">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+</head>
+<body data-sound-scene="gajan">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div id="scroll-progress"></div>
+<div id="a11y-drawer" class="a11y-drawer" role="dialog" aria-modal="false" aria-label="Accessibility and reading options">
+  <div class="a11y-drawer-head">
+    <p class="eyebrow" style="margin:0;">Reading &amp; Accessibility</p>
+    <button type="button" class="a11y-close" id="a11y-close" aria-label="Close accessibility options">&times;</button>
+  </div>
+  <p class="small-note" style="margin:.2rem 0 1rem;">Every choice here is remembered in your own browser only, and nothing is sent anywhere.</p>
+  <div class="a11y-row">
+    <label class="a11y-switch" for="opt-contrast">
+      <span><b>High contrast</b><em>Stronger text and borders</em></span>
+      <input type="checkbox" id="opt-contrast"><span class="track" aria-hidden="true"></span>
+    </label>
+  </div>
+  <div class="a11y-row">
+    <label class="a11y-switch" for="opt-motion">
+      <span><b>Reduce motion</b><em>Stop animations and flights</em></span>
+      <input type="checkbox" id="opt-motion"><span class="track" aria-hidden="true"></span>
+    </label>
+  </div>
+  <div class="a11y-row">
+    <label class="a11y-switch" for="opt-font">
+      <span><b>Readable font</b><em>Atkinson Hyperlegible for all text</em></span>
+      <input type="checkbox" id="opt-font"><span class="track" aria-hidden="true"></span>
+    </label>
+  </div>
+  <div class="a11y-row">
+    <label class="a11y-switch" for="opt-underline">
+      <span><b>Underline links</b><em>Make every link stand out</em></span>
+      <input type="checkbox" id="opt-underline"><span class="track" aria-hidden="true"></span>
+    </label>
+  </div>
+  <div class="a11y-row">
+    <p class="tag" style="margin-bottom:.5rem;">Text size</p>
+    <p class="small-note" style="margin:0 0 .6rem;">Scales every piece of text on the site.</p>
+    <div class="fs-row">
+      <button type="button" class="fs-step" id="fs-minus-2" aria-label="Decrease text size">A&minus;</button>
+      <span class="fs-readout" id="fs-readout">100%</span>
+      <button type="button" class="fs-step" id="fs-plus-2" aria-label="Increase text size">A+</button>
+    </div>
+  </div>
+  <div class="a11y-row">
+    <p class="tag" style="margin-bottom:.5rem;">Soundscape volume</p>
+    <p class="small-note" style="margin:0 0 .6rem;">The ambient Gajan piece is generated live in your browser. Use the speaker button in the corner to switch it on or off; this sets how loud it sits.</p>
+    <input type="range" id="opt-volume" class="a11y-range" min="0" max="100" value="75" aria-label="Soundscape volume">
+  </div>
+  <div class="a11y-row a11y-lang">
+    <p class="tag" style="margin-bottom:.5rem;">Language</p>
+    <p class="small-note" style="margin:0 0 .6rem;">Translate this page into বাংলা (Bengali) or back into English. Choosing a language opens the page through Google Translate, which reads the page in order to translate it.</p>
+    <div id="google_translate_element"></div>
+  </div>
+  <div class="a11y-row a11y-lang">
+    <p class="tag" style="margin-bottom:.5rem;">Narration voice</p>
+    <p class="small-note" style="margin:0 0 .6rem;">Which voice the <b>Narrate</b> buttons use. Bengali narration needs a Bengali voice installed in your browser, and reads the page best once it has been translated above.</p>
+    <div class="narrate-lang-switch" role="group" aria-label="Narration language">
+      <button type="button" class="nlang-btn active" data-nlang="auto">Auto</button>
+      <button type="button" class="nlang-btn" data-nlang="en">English</button>
+      <button type="button" class="nlang-btn" data-nlang="bn">বাংলা</button>
+    </div>
+    <p class="small-note" id="narrate-voice-note" style="margin:.6rem 0 0;"></p>
+  </div>
+</div>
+<div class="a11y-scrim" id="a11y-scrim" hidden></div>
+
+<header class="site-nav">
+  <div class="nav-row">
+    <a class="brandmark" href="index.html"><span class="brand-mark"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" stroke="currentColor" stroke-width="1.1" opacity=".45"/>
+  <circle cx="60" cy="60" r="40" stroke="currentColor" stroke-width="1" stroke-dasharray="2 5" opacity=".5"/>
+  <circle cx="60.00" cy="8.00" r="2.10" fill="currentColor"/>
+<circle cx="82.56" cy="13.15" r="2.10" fill="currentColor"/>
+<circle cx="100.66" cy="27.58" r="2.10" fill="currentColor"/>
+<circle cx="110.70" cy="48.43" r="2.10" fill="currentColor"/>
+<circle cx="110.70" cy="71.57" r="2.10" fill="currentColor"/>
+<circle cx="100.66" cy="92.42" r="2.10" fill="currentColor"/>
+<circle cx="82.56" cy="106.85" r="2.10" fill="currentColor"/>
+<circle cx="60.00" cy="112.00" r="2.10" fill="currentColor"/>
+<circle cx="37.44" cy="106.85" r="2.10" fill="currentColor"/>
+<circle cx="19.34" cy="92.42" r="2.10" fill="currentColor"/>
+<circle cx="9.30" cy="71.57" r="2.10" fill="currentColor"/>
+<circle cx="9.30" cy="48.43" r="2.10" fill="currentColor"/>
+<circle cx="19.34" cy="27.58" r="2.10" fill="currentColor"/>
+<circle cx="37.44" cy="13.15" r="2.10" fill="currentColor"/>
+  <g>
+    <path d="M60 30c3 6 3 9 0 13m0-13c-3 6-3 9 0 13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M48 32c3 5 7 7 12 7s9-2 12-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M60 18v8M48 32l-3-8m3 8l2-9m13 9l3-8m-3 8l-2-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M60 43v22" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <rect x="40" y="65" width="40" height="22" rx="2" stroke="currentColor" stroke-width="2.2"/>
+    <circle cx="40" cy="76" r="4.5" stroke="currentColor" stroke-width="2"/>
+    <circle cx="80" cy="76" r="4.5" stroke="currentColor" stroke-width="2"/>
+    <path d="M47 72h26M47 80h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+</svg></span><span class="brand-lines"><b>Chitragāthā</b>Gajan &amp; Patachitra · Paschim Medinipur</span></a>
+    <nav class="links" id="nav-links"><div class="nav-item" data-active="false"><a href="index.html">Home</a></div><div class="nav-item" data-active="true"><a href="about.html" class="nav-btn">Project &amp; About ▾</a><div class="dropdown"><a href="about.html">About the Project</a><a href="team.html">Our Team</a></div></div><div class="nav-item" data-active="false"><a href="explore.html" class="nav-btn">Explore ▾</a><div class="dropdown"><a href="explore.html">Explore Hub</a><a href="explore-gajan.html">Gajan</a><a href="explore-patachitra.html">Patachitra</a><a href="explore-immersive.html">AR / VR Mode</a><a href="sources.html">Sources &amp; Scholarship</a></div></div><div class="nav-item" data-active="false"><a href="licensing.html" class="nav-btn">Governance &amp; Contact ▾</a><div class="dropdown"><a href="licensing.html">Licensing &amp; Ethics</a><a href="credits.html">Credits &amp; Acknowledgements</a><a href="faq.html">FAQ</a><a href="cite.html">Cite This Project</a><a href="contact.html">Contact</a></div></div></nav>
+    <div class="nav-tools">
+      <div class="a11y-panel">
+        <button class="tool-btn" id="fs-minus" title="Decrease text size" aria-label="Decrease text size">A-</button>
+        <button class="tool-btn" id="fs-plus" title="Increase text size" aria-label="Increase text size">A+</button>
+        <button class="tool-btn" id="sound-fab" aria-pressed="false" title="Toggle ambient soundscape" aria-label="Toggle ambient soundscape">
+          <span id="sound-icon-on" style="display:none;"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 9v6h4l6 5V4l-6 5H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M17 8.5a6 6 0 0 1 0 7M19.5 6a9.5 9.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span id="sound-icon-off"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 9v6h4l6 5V4l-6 5H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <button class="tool-btn" id="theme-toggle" title="Toggle dark / light mode" aria-label="Toggle dark or light mode"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4.4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+        <button class="tool-btn" id="a11y-toggle" title="Accessibility &amp; reading options" aria-label="Accessibility and reading options" aria-expanded="false" aria-controls="a11y-drawer"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="7.1" r="1.5" fill="currentColor"/><path d="M7.4 10.2c3 .9 6.2.9 9.2 0M12 10.6v4m0 0l-2.3 4.1M12 15.2l2.3 4.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="tool-btn nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">≡</button>
+    </div>
+  </div>
+</header>
+<div class="page-banner"><div class="wrap"><div class="crumb"><a href="index.html">Home</a> / Project &amp; About</div><p class="eyebrow">Project &amp; About</p><h1>About the Project</h1><p>What this archive is for, what it set out to do, and how it was actually built.</p></div></div>
+<main id="main-content">
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Project Brief</p>
+    <h2>Why this archive exists</h2>
+    <p class="lede">As residents of Paschim Medinipur, preserving Gajan and Patachitra felt like a responsibility rather than a research topic. Most existing scholarship on Gajan leans on visual ethnography — what the ritual looks like from the outside — while the lived experience and oral narrative of the people inside it stays largely undocumented. Patachitra, meanwhile, already has a sprawling digital footprint: government portals, artist pages, art-market listings, press coverage, social video — more than two dozen separate registers that rarely talk to each other. This project turns oral tradition into a sustainable digital archive by pairing ethnographic fieldwork with careful digital preservation, treating both traditions as living practice rather than finished heritage.</p>
+    <button class="btn small outline narrate-btn" data-target="#about-brief-text">▶ Narrate this section</button>
+    <div id="about-brief-text" style="display:none;">Why this archive exists. As residents of Paschim Medinipur, preserving Gajan and Patachitra felt like a responsibility rather than a research topic. Most existing scholarship on Gajan leans on visual ethnography — what the ritual looks like from the outside — while the lived experience and oral narrative of the people inside it stays largely undocumented. Patachitra, meanwhile, already has a sprawling digital footprint. This project turns oral tradition into a sustainable digital archive by pairing ethnographic fieldwork with careful digital preservation.</div>
+  </div>
+</section>
+
+<div class="pata-border"></div>
+
+<section style="background:var(--bg-sunken);">
+  <div class="wrap">
+    <p class="eyebrow">Project Objectives</p>
+    <h2>Five things this project set out to do</h2>
+    <div class="grid-3" style="margin-top:2rem;">
+      <div class="card reveal"><p class="tag">01</p><h4>Document &amp; archive both traditions</h4><p>Build a digital record of Gajan and Patachitra that treats each as a living, changing practice, not a frozen artifact.</p></div>
+      <div class="card reveal"><p class="tag">02</p><h4>Build a sustainable, community-centred repository</h4><p>Use fieldwork, oral history and audiovisual records as the foundation — not scraped or secondhand material.</p></div>
+      <div class="card reveal"><p class="tag">03</p><h4>Preserve local voices through participatory archiving</h4><p>Let the people who practise these traditions speak for themselves, in their own words, wherever possible.</p></div>
+      <div class="card reveal"><p class="tag">04</p><h4>Put Digital Humanities method to work</h4><p>Apply DH tools — structured metadata, digital-footprint mapping, citation infrastructure — to safeguarding intangible heritage.</p></div>
+      <div class="card reveal"><p class="tag">05</p><h4>Make it genuinely accessible</h4><p>Bilingual (Bengali/English), screen-reader- and narrator-friendly, adjustable text size, dark/light mode — built to actually support research and community engagement, not sit in a folder.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="pata-border flip"></div>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">How We Built It</p>
+    <h2>Method, stack and the constraints we kept on purpose</h2>
+    <div class="grid-2" style="margin-top:1.4rem;">
+      <div class="card reveal">
+        <p class="tag">Fieldwork</p>
+        <p>Key-informant interviews were the backbone of both tracks. For Gajan: five participants across five roles — a migrated villager, a devotee of fifty years, a temple priest, a young observer, and an active ritual performer. For Patachitra: interviews and field documentation across five comparable roles — a master patua/collective president, a senior woman performer, a next-generation artisan, a market-facing patua and a community organiser — plus a literature review spanning twenty-seven articles.</p>
+      </div>
+      <div class="card reveal">
+        <p class="tag">Documentation</p>
+        <p>Audio and video recordings preserve the participants' own voices and, where captured, their manner of narration; written transcription makes that material searchable and citable. Culturally specific terms — <em>Jhiv Phora</em>, <em>Ban Phora</em>, <em>Hobishya</em>, <em>Bhokta</em>, <em>Sannyasi</em>, <em>Thakur Tola</em>, <em>Charak Kath</em> — are explained in context rather than flattened into generic translation.</p>
+      </div>
+      <div class="card reveal">
+        <p class="tag">Technical build</p>
+        <p>This site is a plain static HTML/CSS/JS build — no framework, no server, no database — so it can be hosted on GitHub Pages indefinitely without a dependency silently breaking. Real browser-native tools do the heavy lifting: the <code>SpeechSynthesis</code> API narrates the page aloud, the Web Audio API synthesizes the ambient soundscape entirely in-browser (no sampled or copyrighted audio), and Google Translate's embed handles Bengali/English switching.</p>
+      </div>
+      <div class="card reveal">
+        <p class="tag">Real WebXR, not a substitute</p>
+        <p>The AR/VR mode under <a href="explore-immersive.html">Explore</a> runs on the browser's own <code>navigator.xr</code> WebXR API via three.js — genuine augmented- and virtual-reality sessions, not a CSS imitation. It needs no server: WebXR runs entirely client-side over HTTPS, which GitHub Pages already provides. Both scenes are built as original procedural 3D geometry and hand-painted canvas textures — a Gajan ritual space (charak wheel, dhak, trishul, a live particle flame) and a Patachitra scroll-painting scene (pigments, brush, an unrolling scroll) — so the painting and ritual stay the project's own work rather than a borrowed photograph or a licensed 3D asset. On a phone or headset without WebXR, the full interactive 3D scene still works with mouse or touch; the AR/VR buttons simply activate for real when a capable device is detected.</p>
+      </div>
+    </div>
+    <p class="small-note reveal" style="margin-top:1.6rem;">Every audio file on this site is a real field recording from the project's own interviews, compressed for low file size without re-recording or synthesizing the voices themselves. See <a href="explore-gajan.html">Explore → Gajan</a> for the recordings and <a href="licensing.html">Licensing &amp; Ethics</a> for how consent and sacred-content restrictions are handled.</p>
+    <a class="btn" href="team.html" style="margin-top:1rem;">Meet the Team →</a>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <h5>Chitragāthā</h5>
+      <p>A community-grounded digital-humanities archive of Gajan ritual and Patachitra scroll-painting traditions in Paschim Medinipur, West Bengal — built by two researchers from IIT (ISM) Dhanbad, shared under Creative Commons with Indigenous-data-sovereignty safeguards.</p>
+      <p style="margin-top:1rem;"><button type="button" class="btn small outline" id="footer-a11y-open">Language &amp; accessibility options</button></p>
+    </div>
+    <div>
+      <h5>Project &amp; About</h5>
+      <a href="about.html">About the Project</a>
+      <a href="team.html">Our Team</a>
+    </div>
+    <div>
+      <h5>Explore</h5>
+      <a href="explore-gajan.html">Gajan</a>
+      <a href="explore-patachitra.html">Patachitra</a>
+      <a href="explore-immersive.html">AR / VR Mode</a>
+      <a href="sources.html">Sources &amp; Scholarship</a>
+    </div>
+    <div>
+      <h5>Governance</h5>
+      <a href="licensing.html">Licensing &amp; Ethics</a>
+      <a href="credits.html">Credits &amp; Acknowledgements</a>
+      <a href="faq.html">FAQ</a>
+      <a href="cite.html">Cite This Project</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Chitragāthā. All rights reserved, except where the licence on this page grants permission. <a href="licensing.html">Text and data licensed CC BY-NC 4.0</a>. Participants' recorded words and images remain theirs; third-party sources keep their own terms.</span>
+  </div>
+</footer>
+<script src="app.js?v=202610271933"></script>
+
+</body>
+</html>
