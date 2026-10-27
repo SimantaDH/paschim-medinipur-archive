@@ -1,0 +1,26 @@
+Chitragatha — files changed in this update
+==========================================
+
+Upload all of these to your repository root, replacing what is there.
+Nothing else needs to change: the audio, images, fonts and three.js files
+are untouched, which is why this is a few hundred KB instead of 10 MB.
+
+NEW FILES
+  deepmap.js        the interactive map component
+  westbengal.json   district outlines (Census 2011, DataMeet, CC BY 4.0)
+
+CHANGED
+  style.css         map styling
+  explore-gajan.html        + map of the three Gajan villages
+  explore-patachitra.html   + map of Naya, Pingla
+  team.html                 Disha Pramanik's updated bio
+  faq.html                  "who built it" corrected
+  credits.html              institutions updated, map data credited
+  contact.html              affiliation updated
+
+  index.html, about.html, explore.html, explore-immersive.html,
+  sources.html, licensing.html, cite.html
+      No visible change, but they carry the new cache stamp
+      (style.css?v=...). Upload them too, or those pages will keep
+      asking for the old stylesheet and the map styling will look wrong
+      if you later navigate from them.

@@ -583,3 +583,65 @@ main,footer.site-footer,.page-banner,.pata-border{position:relative;z-index:1;}
      menu off the edge, so the text-size pair moves into the drawer here */
   .a11y-panel #fs-minus,.a11y-panel #fs-plus{display:none;}
 }
+
+/* =====================================================================
+   Deep map — West Bengal, Census 2011 district boundaries drawn as SVG
+   ===================================================================== */
+.deepmap{margin:1.8rem 0;}
+.dm-controls{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.9rem;}
+.dm-chip{font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;padding:.5rem .9rem;border:1px solid var(--border-strong);background:var(--bg-raised);color:var(--fg-muted);border-radius:20px;cursor:pointer;transition:background .22s ease,color .22s ease,border-color .22s ease,transform .22s cubic-bezier(.16,1,.3,1);}
+.dm-chip:hover{transform:translateY(-2px);border-color:var(--accent);color:var(--accent-2);}
+.dm-chip.active{background:var(--accent);border-color:var(--accent);color:var(--fg-on-ink);}
+.dm-frame{position:relative;aspect-ratio:4/3;width:100%;border:1px solid var(--border-strong);border-radius:10px;overflow:hidden;background:linear-gradient(170deg,var(--bg-sunken),var(--bg-raised));box-shadow:var(--shadow);}
+:root[data-theme="dark"] .dm-frame{background:linear-gradient(170deg,#0d1020,#141829);}
+.dm-frame svg{display:block;width:100%;height:100%;}
+
+.dm-district{fill:var(--bg-raised);stroke:var(--border-strong);stroke-width:1.1;vector-effect:non-scaling-stroke;transition:fill .3s ease;}
+:root[data-theme="dark"] .dm-district{fill:#1b2036;stroke:#39405c;}
+.dm-district:hover{fill:color-mix(in srgb, var(--accent) 18%, var(--bg-raised));}
+.dm-district.dm-focus{fill:color-mix(in srgb, var(--accent) 34%, var(--bg-raised));stroke:var(--accent-2);stroke-width:2;}
+:root[data-theme="dark"] .dm-district.dm-focus{fill:color-mix(in srgb, var(--accent) 42%, #1b2036);}
+.dm-district.dm-focus:hover{fill:color-mix(in srgb, var(--accent) 48%, var(--bg-raised));}
+
+.dm-marker{cursor:pointer;}
+.dm-marker .dm-hit{fill:transparent;stroke:none;}
+.dm-marker .dm-pulse,.dm-marker .dm-pin,.dm-marker .dm-label{pointer-events:none;}
+.dm-marker .dm-pin{fill:var(--lac);stroke:#fff;stroke-width:1.5;vector-effect:non-scaling-stroke;}
+.dm-marker .dm-pulse{fill:var(--lac);opacity:.28;animation:dm-pulse 2.6s ease-out infinite;}
+.dm-marker.dm-nolabel .dm-label{opacity:0;}
+.dm-label{transition:opacity .3s ease;}
+.dm-marker.active .dm-pin{fill:var(--turmeric);}
+.dm-marker:hover .dm-pin,.dm-marker:focus-visible .dm-pin{fill:var(--turmeric);}
+.dm-marker:focus-visible{outline:none;}
+.dm-marker:focus-visible .dm-pulse{opacity:.6;}
+.dm-label{font-family:var(--mono);font-size:12px;fill:var(--fg);paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round;}
+:root[data-theme="dark"] .dm-label{fill:#f1ead8;stroke:#0d1020;}
+@keyframes dm-pulse{0%{opacity:.4;}70%{opacity:0;}100%{opacity:0;}}
+
+.dm-hint{position:absolute;left:.8rem;top:.8rem;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;background:var(--panel-ink);color:var(--fg-on-ink);padding:.4rem .7rem;border-radius:4px;opacity:0;transform:translateY(-4px);transition:opacity .25s ease,transform .25s ease;pointer-events:none;}
+.dm-hint.in{opacity:1;transform:none;}
+
+.dm-popup{position:absolute;right:.9rem;bottom:.9rem;left:.9rem;max-width:330px;margin-left:auto;background:var(--bg-raised);border:1px solid var(--accent);border-radius:8px;padding:1rem 1.1rem;box-shadow:0 18px 40px -18px rgba(0,0,0,.5);opacity:0;transform:translateY(14px) scale(.97);pointer-events:none;transition:opacity .35s ease,transform .35s cubic-bezier(.16,1,.3,1);}
+.dm-popup.open{opacity:1;transform:none;pointer-events:auto;}
+.dm-popup-close{position:absolute;top:.4rem;right:.5rem;background:none;border:0;font-size:1.3rem;line-height:1;color:var(--fg-muted);cursor:pointer;}
+.dm-popup-close:hover{color:var(--accent-2);}
+.dm-popup-kicker{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.09em;color:var(--accent-2);margin:0 0 .25rem;}
+.dm-popup h4{font-family:var(--display);font-size:1.12rem;margin:0 0 .3rem;}
+.dm-popup-where{font-size:.82rem;color:var(--fg-muted);margin:0 0 .4rem;line-height:1.5;}
+.dm-popup-coords{font-family:var(--mono);font-size:.68rem;color:var(--fg-muted);margin:0 0 .6rem;}
+.dm-popup-people{list-style:none;margin:0;padding:.6rem 0 0;border-top:1px solid var(--border);}
+.dm-popup-people li{display:flex;flex-direction:column;margin-bottom:.45rem;}
+.dm-popup-people b{font-size:.9rem;}
+.dm-popup-people span{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-2);}
+.dm-popup-note{font-size:.76rem;color:var(--fg-muted);margin:.5rem 0 0;line-height:1.5;font-style:italic;}
+
+@media (max-width:640px){
+  .dm-frame{aspect-ratio:3/4;}
+  .dm-popup{max-width:none;}
+}
+:root[data-motion="reduced"] .dm-marker .dm-pulse{animation:none;opacity:.25;}
+.dm-grid{stroke:var(--accent-2);opacity:0;fill:none;transition:opacity .4s ease;}
+.dm-grid.in{opacity:.22;}
+:root[data-theme="dark"] .dm-grid.in{opacity:.3;}
+.dm-scalebar{position:absolute;left:.9rem;bottom:.9rem;display:flex;flex-direction:column;gap:.2rem;font-family:var(--mono);font-size:.64rem;color:var(--fg-muted);pointer-events:none;}
+.dm-scalebar-rule{display:block;height:7px;border:1px solid var(--fg-muted);border-top:0;}
